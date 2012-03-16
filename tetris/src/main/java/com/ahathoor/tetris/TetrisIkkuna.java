@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Ikkuna johon tetrispelin elementit piirretään
  */
 package com.ahathoor.tetris;
 
@@ -13,35 +12,19 @@ import javax.swing.JFrame;
  * @author mkctammi
  */
 public class TetrisIkkuna extends JFrame {
-/**Ikkuna johon tetris pelin tavarat piirretään
- * 
+/**
+ * Konstruktoi TetrisIkkunan
  * @throws HeadlessException 
  */
-    public TetrisIkkuna() throws HeadlessException {
+    public TetrisIkkuna() throws HeadlessException, Exception {
         super();
-        setTitle("Ikkuna!");
+        setTitle("Tetturissy!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
+        
+        TetrisPanel tetrisPanel = new TetrisPanel(new TetrisAlusta());
+        add(tetrisPanel);
         setVisible(true);
     }
-    @Override
-    public void paint(Graphics g) {
-        Graphics2D g2 = (Graphics2D)g;
-        double x = 15, y = 50, w = 70, h = 70;
-        Ellipse2D e = new Ellipse2D.Double(x, y, w, h);
-        GradientPaint gp = new GradientPaint(75, 75, Color.white,
-                                    95, 95, Color.gray, true);
-        // Fill with a gradient.
-        g2.setPaint(gp);
-        g2.fill(e);
-        // Stroke with a solid color.
-        e.setFrame(x + 100, y, w, h);
-        g2.setPaint(Color.black);
-        g2.setStroke(new BasicStroke(8));
-        g2.draw(e);
-        // Stroke with a gradient.
-        e.setFrame(x + 200, y, w, h);
-        g2.setPaint(gp);
-        g2.draw(e);
-  }
+    
 }
