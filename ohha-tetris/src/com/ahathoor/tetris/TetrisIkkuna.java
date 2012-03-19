@@ -21,9 +21,9 @@ public class TetrisIkkuna extends JFrame {
  * @throws HeadlessException 
  */
     TetrisAlusta pelialusta = new TetrisAlusta();
-    final TetrisPanel tetrisPanel = new TetrisPanel(pelialusta);
+    TetrisPanel tetrisPanel = new TetrisPanel(pelialusta);
     
-    public TetrisIkkuna() throws HeadlessException, Exception {
+    public TetrisIkkuna() throws HeadlessException{
         super();
         setTitle("Tetturissy!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,8 +39,8 @@ public class TetrisIkkuna extends JFrame {
         paneeli.add(nappi);
         
         add(paneeli);
-        pelialusta.getPalikkaAt(5,5).setStopped(false);
-        pelialusta.getPalikkaAt(5,5).setFilled(true);
+        pelialusta.LisaaLiikkuvaPalikka(5, 5);
+        pelialusta.LisaaLiikkuvaPalikka(5, 6);
         nappi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

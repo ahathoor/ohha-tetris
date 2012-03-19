@@ -8,7 +8,7 @@ import java.awt.HeadlessException;
  */
 public class App 
 {
-    public static void main( String[] args ) throws HeadlessException, Exception
+    public static void main( String[] args ) throws HeadlessException
     {
         TetrisIkkuna f = new TetrisIkkuna();
     }

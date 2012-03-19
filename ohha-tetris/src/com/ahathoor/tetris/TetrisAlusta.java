@@ -25,18 +25,19 @@ public class TetrisAlusta {
         return korkeus;
     }
     
-    public TetrisAlusta() throws Exception{
-        /**luo uuden tetrisalustan
-         * 
-         */
+    /**
+     * Luo uuden tetrisalustan korkeus=20 leveys = 10
+     */
+    public TetrisAlusta() {
+        this(10,20);
+    }
+    public TetrisAlusta(int w,int h) {
         korkeus = 20;
         leveys = 10;
         //rakennetaan PalikkaRivi kerrallaan alusta
         for (int rivi = 0;rivi<=korkeus;rivi++) {
             alusta.add(new PalikkaRivi(leveys));
-        }
-        
-        
+        }        
     }
     /**
      * Siirtää palikoita alaspäin mikäli mahdollista, palauttaa true jos onnistui
@@ -56,7 +57,7 @@ public class TetrisAlusta {
             int x = koordinaatti[0];
             int y = koordinaatti[1];
             if(y==0) return false;
-            if(!getPalikkaAt(x,y+1).isEmpty()) return false;
+            if(!getPalikkaAt(x,y+1).isEmpty() && getPalikkaAt(x,y+1).isStopped()) return false;
         }
         for (int[] koordinaatti : liikkuvat){
             int x = koordinaatti[0];
@@ -79,7 +80,7 @@ public class TetrisAlusta {
      * Lisää palikan kohtaan x,y,
      * jos negatiivinen tai yli laudan ei tee mitään
      */
-    public void LisaaPalikka(int x,int y) throws Exception {
+    public void LisaaPalikka(int x,int y) {
 
         if (x<0) return;
         if (x>leveys)return;
@@ -88,12 +89,15 @@ public class TetrisAlusta {
         
         getPalikkaAt(x,y).setFilled(true);
     }
+    public void LisaaLiikkuvaPalikka(int x,int y) {
+        this.getPalikkaAt(x, y).setFilled(true);
+        this.getPalikkaAt(x, y).setStopped(false);
+    }
     /**
      * Palauttaa palikan kohdassa x,y, palauttaa null jos kysytty ei laudalla
      * @param x
      * @param y
      * @return
-     * @throws Exception 
      */
     public Palikka getPalikkaAt(int x,int y) {
 
