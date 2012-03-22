@@ -64,7 +64,7 @@ public class TetrisAlustaTest {
         System.out.println("shiftBlocks");
         TetrisAlusta instance = new TetrisAlusta();
         boolean expResult = true;
-        boolean result = instance.shiftBlocks();
+        boolean result = instance.shiftBlocks(0,0);
         assertEquals(expResult, result);
     }
 

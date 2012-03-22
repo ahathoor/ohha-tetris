@@ -41,10 +41,14 @@ public class TetrisAlusta {
             alusta.add(new PalikkaRivi(leveys));
         }        
     }
+    
     /**
-     * Pyrkii siirtämään palikoita suhteellisesti määrän xshift,yshift
+     * Palauttaa laudalta löytyvät liikkuvat blokit
+     * ArrayListinä koordinaattipareina
+     * @return 
      */
-    public boolean shiftBlocks(int xshift, int yshift) {
+    public ArrayList<int[]> getLiikkuvat() {
+    
         //kerätään liikkuvat blokit arraylistiin
         ArrayList<int[]> liikkuvat = new ArrayList<int[]>();
         for (int x = 0; x < leveys; x++){
@@ -55,18 +59,63 @@ public class TetrisAlusta {
                 }
             }
         }
-        for (int[] koordinaatti : liikkuvat){
-            int x = koordinaatti[0];
-            int y = koordinaatti[1];
-            if(!laudalla(x+xshift,y+yshift)) return false;
-            if(!getPalikkaAt(x+xshift,y+yshift).isEmpty() && getPalikkaAt(x+xshift,y+yshift).isStopped()) return false;
+        return liikkuvat;
+    }
+    public void pyorita() {
+        //find the center of gravity of the moving blocks
+        
+        //arrange blocks to an arraylist 
+        //where values are relative to this block
+        
+        //flip the x-y values of the relativity array
+        
+        //attempt to put this new configuration on the board
+    }
+    /**
+     * Pyrkii siirtämään palikoita suhteellisesti määrän xshift,yshift
+     */
+    public boolean shiftBlocks(int xshift, int yshift) {
+        ArrayList<int[]> liikkuvat = this.getLiikkuvat();
+        ArrayList<int[]> liikkuvat_trans = new ArrayList<int[]>();
+        
+        for (int[] coords : liikkuvat) {
+            liikkuvat_trans.add(new int[] {coords[0] + xshift, coords[1] + yshift});
         }
-        for (int[] koordinaatti : liikkuvat){
-            int x = koordinaatti[0];
-            int y = koordinaatti[1];
-            
-            getPalikkaAt(x+xshift,y+yshift).copyAttributes(getPalikkaAt(x,y));
-            getPalikkaAt(x,y).clear();
+        
+        if (!this.mahtuuko(liikkuvat_trans)) return false;
+        
+        int i = 0;
+        for (int[] coords : liikkuvat_trans) {
+            Palikka uusi = this.getPalikkaAt(coords[0], coords[1]);
+            int[] oldcoords = liikkuvat.get(i);
+            Palikka vanha = this.getPalikkaAt(oldcoords[0], oldcoords[1]);
+            uusi.copyAttributes(vanha);
+            if (!liikkuvat_trans.contains(oldcoords)) {
+                vanha.clear();
+            }
+            i++;
+        }
+        return true;
+    }
+    /**
+     * poistaa laudalta poistettavat palikat
+     * @param poistettavat 
+     */
+    public void poistaLaudalta(ArrayList<int[]> poistettavat) {
+        for (int[] koordinaatti : poistettavat) {
+            this.getPalikkaAt(koordinaatti[0], koordinaatti[1]).clear();
+        }
+    }
+    /**
+     * Kertoo onko annetulle koordinaattiarraylistille tilaa laudalla
+     * ; onko se laudalla, ja onko se menossa liikkumattomien palikoiden päälle
+     * @param palikat
+     * @return 
+     */
+    public boolean mahtuuko(ArrayList<int[]> kokeilu) {
+        for (int[] koordinaatti : kokeilu) {
+            if (!this.laudalla(koordinaatti[0], koordinaatti[1])) return false;
+            if (!this.getPalikkaAt(koordinaatti[0], koordinaatti[1]).isEmpty() && this.getPalikkaAt(koordinaatti[0], koordinaatti[1]).isStopped()) return false;
         }
         return true;
     }
