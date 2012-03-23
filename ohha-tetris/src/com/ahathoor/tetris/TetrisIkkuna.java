@@ -3,7 +3,8 @@
  */
 package com.ahathoor.tetris;
 
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -19,7 +20,7 @@ public class TetrisIkkuna extends JFrame {
  * Konstruktoi TetrisIkkunan
  * @throws HeadlessException 
  */
-    TetrisAlusta pelialusta = new TetrisAlusta(20,20);
+    TetrisAlusta pelialusta = new TetrisAlusta(10,20);
     TetrisPanel tetrisPanel = new TetrisPanel(pelialusta);
     
     
@@ -31,10 +32,10 @@ public class TetrisIkkuna extends JFrame {
                tetrisPanel.repaint();
             }
         };
-    ActionListener oikealle = new ActionListener() {
+    ActionListener kaanna = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-	       pelialusta.shiftBlocks(1,0);
+	       pelialusta.flipBlock();
                tetrisPanel.repaint();
             }
         };
@@ -55,9 +56,12 @@ public class TetrisIkkuna extends JFrame {
         paneeli.add(nappi);
         
         add(paneeli);
-        pelialusta.LisaaLiikkuvaPalikka(5, 7);
         pelialusta.LisaaLiikkuvaPalikka(5, 6);
-        nappi.addActionListener(alas);
+        pelialusta.LisaaLiikkuvaPalikka(5, 7);
+        pelialusta.LisaaLiikkuvaPalikka(5, 8);
+        pelialusta.LisaaLiikkuvaPalikka(4, 8);
+        pelialusta.LisaaLiikkuvaPalikka(8, 12);
+        nappi.addActionListener(kaanna);
         pack();
         setVisible(true);
     }

@@ -1,0 +1,15 @@
+Aihe: tetris
+
+Ohjelma ylläpitää pelilautaa, jossa graafisesti kuvataan tetris-pelin kulku.
+Tetriksessä ruutulaudan läpi putoavia palikoita pelaajan tulee käännellä
+muodostamaan kokonaisia rivejä, jotka poistetaan sitten laudalta.
+
+Peli syöttää laudalle yhden sarjan liikkuvia palikoita kerrallaan.
+
+
+Pelaajan toiminnot:
+
+-Aloittaa uusi tetrispeli
+-Ohjata tetrispalikoiden putoamista laudalla
+-Voi liikuttaa palikoita oikealle/vasemmalle
+-Voi kääntää palikoita

@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Palikka määrittelee tetriskentän yhdessä lokerossa asustavan olion,
+ *  onko se tyhjä, mikä sen väri on, ja onko se vielä liikkeessä.
  */
 package com.ahathoor.tetris;
 
@@ -9,10 +9,6 @@ package com.ahathoor.tetris;
  * @author mkctammi
  */
 public class Palikka {
-    /** Palikka määrittelee tetriskentän yhdessä lokerossa asustavan olion,
-     *  onko se tyhjä, mikä sen väri on, ja onko se vielä liikkeessä.
-     */
-    
     private int[] color;
     private int[] defaultColor = new int[] {100,200,0};
     
@@ -22,13 +18,17 @@ public class Palikka {
     public Palikka() {
         empty = true;
         color = new int[3];
-        setColor(defaultColor);
+        color = defaultColor;
+        stopped = true;
+    }
+    public Palikka(int[] rgb) {
+        empty = true;
+        color = rgb;
         stopped = true;
     }
     /**
-     * Säätää palikan värin väriksi int[] {r,g,b}, jossa väriarvot menevät välillä
-     * 0-255, jos arvoja tämän välin ulkopuolelta niin ei tee mitään.
-     * @param rgb
+     * Säätää palikan värin
+     * @param rgb Väriarvo muotoa {0..255,0..255,0..255}
      * @throws Exception 
      */
     public void setColor(int[] rgb){
@@ -83,6 +83,14 @@ public class Palikka {
     public void clear() {
         stopped = true;
         empty = true;
+    }
+    /**
+     * Palauttaa kopion itsestään
+     */
+    public Palikka getCopy() {
+        Palikka palautus = new Palikka();
+        palautus.copyAttributes(this);
+        return palautus;
     }
     /**
      * Kopioi attribuutit joltain palikalta p
