@@ -11,7 +11,7 @@ import javax.swing.JPanel;
  *
  * @author mothi
  */
-public class TetrisPanel extends JPanel {
+public class TetrisPanel extends JPanel{
     
     private TetrisAlusta alusta;
     

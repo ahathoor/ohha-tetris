@@ -7,35 +7,42 @@ import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
  * @author mkctammi
  */
-public class TetrisIkkuna extends JFrame {
-/**
- * Konstruktoi TetrisIkkunan
- * @throws HeadlessException 
- */
-    TetrisAlusta pelialusta = new TetrisAlusta(10,20);
-    TetrisPanel tetrisPanel = new TetrisPanel(pelialusta);
+public class TetrisIkkuna extends JFrame implements KeyListener{
+    
+    Pelinkulku peli = new Pelinkulku();
+    TetrisPanel tetrisPanel = new TetrisPanel(peli.getBoard());
     
     
     //Action Listeners
-    ActionListener alas = new ActionListener() {
+    ActionListener vasen = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-	       pelialusta.shiftBlocks(0,-1);
+	       peli.left();
                tetrisPanel.repaint();
             }
         };
     ActionListener kaanna = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-	       pelialusta.flipBlock();
+	       peli.flip();
+               tetrisPanel.repaint();
+            }
+        };
+    ActionListener tick = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+	       peli.step();
                tetrisPanel.repaint();
             }
         };
@@ -46,25 +53,41 @@ public class TetrisIkkuna extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(500, 500);
         
+        Timer timer = new Timer(200, tick);
+        timer.start(); 
+        
         JPanel paneeli = new JPanel();
         tetrisPanel.setPreferredSize(new Dimension(200, 400));
         
-        JButton nappi = new JButton();
-        nappi.setPreferredSize(new Dimension(100,50));
-        
         paneeli.add(tetrisPanel);
-        paneeli.add(nappi);
         
         add(paneeli);
-        pelialusta.LisaaLiikkuvaPalikka(5, 6);
-        pelialusta.LisaaLiikkuvaPalikka(5, 7);
-        pelialusta.LisaaLiikkuvaPalikka(5, 8);
-        pelialusta.LisaaLiikkuvaPalikka(4, 8);
-        pelialusta.LisaaLiikkuvaPalikka(8, 12);
-        nappi.addActionListener(kaanna);
+        Palikka testi = new Palikka();
+        testi.setFilled(true);
+        testi.setStopped(false);
         pack();
         setVisible(true);
+        
+        paneeli.addKeyListener(this);
+        paneeli.requestFocus();
     }
+
+    @Override
+    public void keyTyped(KeyEvent ke) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent ke) {
+       if (ke.getKeyCode()==37) peli.left();
+       if (ke.getKeyCode()==39) peli.right();
+       if (ke.getKeyCode()==38) peli.up();
+       if (ke.getKeyCode()==40) peli.down();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent ke) {
+    }
+
     
 }
    

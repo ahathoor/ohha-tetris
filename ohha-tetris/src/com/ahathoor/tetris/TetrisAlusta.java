@@ -37,6 +37,28 @@ public class TetrisAlusta {
         this(10,20);
     }
     /**
+     * Lisää uuden palikkamuodon
+     * @param muoto
+     * @param x vasen yläkulma
+     * @param y vasen yläkulma  
+     * @param tyyppi
+     * @return 
+     */
+    public boolean lisaaMuoto (ArrayList<int[]> muoto, int x, int y, Palikka tyyppi) {
+        ArrayList<int[]> lisays = new ArrayList<int[]>();
+        for (int[] c : muoto) {
+            lisays.add(new int[] {x - c[0], y - c[1]});
+        }
+        return lisaaPalikat(lisays, tyyppi);
+    }
+    public boolean lisaaPalikat(ArrayList<int[]> lisays, Palikka tyyppi) {
+        if (!this.mahtuuko(lisays)) return false;
+        for (int [] c : lisays) {
+            this.LisaaPalikka(c[0], c[1], tyyppi);
+        }
+        return true; 
+    }
+    /**
      * Luo uuden tetrisalustan
      * @param w laudan leveys
      * @param h laudan korkeus
@@ -51,7 +73,16 @@ public class TetrisAlusta {
             alusta.add(new PalikkaRivi(leveys));
         }        
     }
-    
+    public boolean onkoLiikkuvia() {
+        for (int x = 0; x < leveys; x++){
+            for (int y=0;y < korkeus;y++) {
+                if (!getPalikkaAt(x,y).isStopped()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
     /**
      * Palauttaa laudalta löytyvät liikkuvat blokit
      * 
@@ -85,8 +116,8 @@ public class TetrisAlusta {
         ArrayList<int[]> liikkuvat_trans = new ArrayList<int[]>();
         ArrayList<float[]> relativePositions = new ArrayList<float[]>();
         //find the pivot of transformation of the moving blocks
-        float xka = 0;
-        float yka = 0;
+        float xka;
+        float yka;
         int xmax = 0;
         int ymax = 0;
         int xmin = Integer.MAX_VALUE;
@@ -118,7 +149,7 @@ public class TetrisAlusta {
         }
         //attempt to put this new configuration on the board
         if (!this.mahtuuko(liikkuvat_trans)) return;
-        else this.siirraPalat(liikkuvat, liikkuvat_trans);
+        this.siirraPalat(liikkuvat, liikkuvat_trans);
     }
     /**
      * Siirtää palikoita laudalla suhteellisen määrän
@@ -138,7 +169,6 @@ public class TetrisAlusta {
         }
         
         if (!this.mahtuuko(liikkuvat_trans)) {
-            this.pysaytaKaikki();
             return false;
         }
         
@@ -163,6 +193,31 @@ public class TetrisAlusta {
         }
     }
     /**
+     * Poistaa rivin laudalta
+     * @param rivi 
+     */
+    public void poistaRivi(int rivi) {
+        for (int i = 0; i<leveys;i++) {
+            this.getPalikkaAt(i, rivi).clear();
+        }
+        for (int j = rivi; j<korkeus;j++) {
+            for (int i = 0;i<leveys;i++) {
+                if(!this.getPalikkaAt(i, j).isEmpty()) this.getPalikkaAt(i, j).setStopped(false);
+            }
+        }
+    }
+    /**
+     * Jos rivin jokainen palikka sisältää palikan, palauttaa true
+     * @param rivi
+     * @return 
+     */
+    public boolean riviOnTaysi(int rivi) {
+        for (int i = 0; i<leveys;i++) {
+            if(this.getPalikkaAt(i, rivi).isEmpty()) return false;
+        }
+        return true;
+    }
+    /**
      * poistaa laudalta poistettavat palikat
      * @param poistettavat 
      */
@@ -185,19 +240,14 @@ public class TetrisAlusta {
         return true;
     }
     /**
-     * Lisää palikan kohtaan x,y,
-     * jos negatiivinen tai yli laudan ei tee mitään
+     * lisää palikan laudalle
+     * @param x 
+     * @param y 
+     * @param tyyppi palikka josta ominaisuudet kopioidaan
      */
-    public void LisaaPalikka(int x,int y) {
+    public void LisaaPalikka(int x,int y, Palikka tyyppi) {
         if (!laudalla(x,y)) return;
-        getPalikkaAt(x,y).setFilled(true);
-        getPalikkaAt(x,y).setColor(newBlockColor);
-    }
-    public void LisaaLiikkuvaPalikka(int x,int y) {
-        if (!laudalla(x,y)) return;
-        this.getPalikkaAt(x, y).setFilled(true);
-        this.getPalikkaAt(x, y).setStopped(false);
-        getPalikkaAt(x,y).setColor(newBlockColor);
+        getPalikkaAt(x,y).copyAttributes(tyyppi);
     }
     /**
      * Palauttaa palikan kohdassa x,y, palauttaa null jos kysytty ei laudalla
