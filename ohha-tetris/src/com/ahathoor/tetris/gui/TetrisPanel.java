@@ -1,8 +1,10 @@
 /*
  * Paneeli, joka piirtää TetrisAlustan
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.gui;
 
+import com.ahathoor.tetris.Palikka;
+import com.ahathoor.tetris.TetrisAlusta;
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;

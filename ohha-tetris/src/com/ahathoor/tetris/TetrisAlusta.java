@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public class TetrisAlusta {
     
-    private String gamestate;
     private int korkeus;
     private int leveys;
     private int[] newBlockColor = new int[] {100,20,55};

@@ -33,5 +33,10 @@ public class PisteLaskuri {
     public void setMultiplier(int multiplier) {
         this.multiplier = multiplier;
     }
+
+    @Override
+    public String toString() {
+        return "" + score;
+    }
     
 }

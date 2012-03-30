@@ -4,6 +4,7 @@
  */
 package com.ahathoor.tetris;
 
+import com.ahathoor.tetris.gui.App;
 import org.junit.*;
 import static org.junit.Assert.*;
 

@@ -18,6 +18,7 @@ public class Pelinkulku {
     private int waitFor = 4;
     private PalikkaMuodot palikkamuodot;
     private Random r = new Random();
+    private PisteLaskuri pistelaskuri = new PisteLaskuri();
     
     private int[] nextColor = {250,0,0};
     public Pelinkulku() {
@@ -29,14 +30,18 @@ public class Pelinkulku {
      */
     public void step(){
         for (int i=0;i<korkeus;i++) {
-            if (board.riviOnTaysi(i)) board.poistaRivi(i);
+            if (!board.onkoLiikkuvia() && board.riviOnTaysi(i)) { 
+                board.poistaRivi(i);
+                pistelaskuri.add(250);
+            }
         }
        if (board.onkoLiikkuvia()) {
            if (cycle < waitFor) cycle++;
            else cycle = 0;
            if(cycle == 0 && !board.shiftBlocks(0, -1)) board.pysaytaKaikki();
        } else {
-           board.lisaaMuoto(palikkamuodot.line, leveys/2, korkeus-1, nextBlock());
+           board.lisaaMuoto(seuraavaMuoto(), leveys/2, korkeus-1, nextBlock());
+           pistelaskuri.add(13);
        }
     }
     private PalikkaMuoto seuraavaMuoto() {
@@ -86,4 +91,8 @@ public class Pelinkulku {
     public TetrisAlusta getBoard() {
         return board;
     }
+    public PisteLaskuri getPistelaskuri() {
+        return pistelaskuri;
+    }
+    
 }
