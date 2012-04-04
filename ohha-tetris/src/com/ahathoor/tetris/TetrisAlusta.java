@@ -13,18 +13,20 @@ public class TetrisAlusta {
     
     private int korkeus;
     private int leveys;
-    private int[] newBlockColor = new int[] {100,20,55};
-
-    public void setNewBlockColor(int[] newBlockColor) {
-        this.newBlockColor = newBlockColor;
-    }
-    
     ArrayList<PalikkaRivi> alusta = new ArrayList<PalikkaRivi>();
 
+    /**
+     * Palauttaa laudan leveyden
+     * @return laudan leveys
+     */
     public int getLeveys() {
         return leveys;
     }
 
+    /**
+     * 
+     * @return
+     */
     public int getKorkeus() {
         return korkeus;
     }
@@ -50,6 +52,12 @@ public class TetrisAlusta {
         }
         return lisaaPalikat(lisays, tyyppi);
     }
+    /**
+     * 
+     * @param lisays
+     * @param tyyppi
+     * @return
+     */
     public boolean lisaaPalikat(ArrayList<int[]> lisays, Palikka tyyppi) {
         if (!this.mahtuuko(lisays)) return false;
         for (int [] c : lisays) {
@@ -72,6 +80,10 @@ public class TetrisAlusta {
             alusta.add(new PalikkaRivi(leveys));
         }        
     }
+    /**
+     * 
+     * @return
+     */
     public boolean onkoLiikkuvia() {
         for (int x = 0; x < leveys; x++){
             for (int y=0;y < korkeus;y++) {
@@ -101,6 +113,9 @@ public class TetrisAlusta {
         }
         return liikkuvat;
     }
+    /**
+     * 
+     */
     public void pysaytaKaikki() {
         ArrayList<int[]> liikkuvat = this.getLiikkuvat();
         for (int[] c : liikkuvat) {
@@ -228,7 +243,7 @@ public class TetrisAlusta {
     /**
      * Kertoo onko annetulle koordinaattiarraylistille tilaa laudalla
      * ; onko se laudalla, ja onko se menossa liikkumattomien palikoiden päälle
-     * @param palikat
+     * @param kokeilu 
      * @return 
      */
     public boolean mahtuuko(ArrayList<int[]> kokeilu) {
@@ -262,6 +277,9 @@ public class TetrisAlusta {
     }
     /**
      * Palauttaa onko x,y piste laudalla
+     * @param x 
+     * @param y
+     * @return onko piste laudalla 
      */
     public boolean laudalla(int x,int y){
         

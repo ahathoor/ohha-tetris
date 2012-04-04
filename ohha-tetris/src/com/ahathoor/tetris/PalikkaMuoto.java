@@ -13,6 +13,11 @@ import java.util.ArrayList;
 public class PalikkaMuoto extends ArrayList<int[]>{
     PalikkaMuoto() {
     }
+    /**
+     * Lisää palikan muotoon annettuihin koordinaatteihin
+     * @param x
+     * @param y
+     */
     public void add(int x,int y) {
         super.add(new int[] {x,y});
     }

@@ -86,8 +86,12 @@ public class TetrisAlustaTest {
         System.out.println("LisaaPalikka");
         int x = 0;
         int y = 0;
+        Palikka t = new Palikka();
+        t.setColor(new int[] {111,222,333});
         TetrisAlusta instance = new TetrisAlusta();
-        instance.LisaaPalikka(x, y);
+        instance.LisaaPalikka(x, y, t);
+        int blue = instance.getPalikkaAt(x,y).getColor()[2];
+        assertEquals(333,blue);
     }
 
     /**

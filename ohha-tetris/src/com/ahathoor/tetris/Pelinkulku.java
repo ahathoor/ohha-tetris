@@ -21,6 +21,9 @@ public class Pelinkulku {
     private PisteLaskuri pistelaskuri = new PisteLaskuri();
     
     private int[] nextColor = {250,0,0};
+    /**
+     * Luo uuden pelinkulun
+     */
     public Pelinkulku() {
         board = new TetrisAlusta(leveys,korkeus);
         palikkamuodot = new PalikkaMuodot();
@@ -45,12 +48,13 @@ public class Pelinkulku {
        }
     }
     private PalikkaMuoto seuraavaMuoto() {
-        int random = r.nextInt(6);
+        int random = r.nextInt(7);
         if (random == 0) return palikkamuodot.L;
         if (random == 1) return palikkamuodot.L2;
         if (random == 2) return palikkamuodot.Z;
         if (random == 3) return palikkamuodot.Z2;
         if (random == 4) return palikkamuodot.box;
+        if (random == 5) return palikkamuodot.T;
         else return palikkamuodot.line;
     }
     private Palikka nextBlock() {

@@ -12,9 +12,16 @@ public class PalikkaMuodot {
     public PalikkaMuoto Z;
     public PalikkaMuoto L2;
     public PalikkaMuoto Z2;
+    public PalikkaMuoto T;
     public PalikkaMuoto box;
     public PalikkaMuoto line;
-    
+    /**
+     * Tämä luokka säilyttää perustetriksen 
+     * palikat julkisina PalikkaMuoto-olioina
+     */
+    /**
+     * 
+     */
     public PalikkaMuodot() {
         L = new PalikkaMuoto();    
         L.add(0,0);
@@ -46,6 +53,11 @@ public class PalikkaMuodot {
         line.add(1,0);
         line.add(2,0);
         line.add(3,0);
+        T = new PalikkaMuoto();
+        T.add(0,0);
+        T.add(1,0);
+        T.add(2,0);
+        T.add(1,1);
     }
     
 }

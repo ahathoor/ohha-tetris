@@ -10,26 +10,31 @@ package com.ahathoor.tetris;
  */
 public class Palikka {
     private int[] color;
-    private int[] defaultColor = new int[] {100,200,0};
+    private int[] defaultColor = new int[] {255,255,0};
     
     private boolean stopped;
     private boolean empty;
-    
+    /**
+     * Luo uuden Palikkaolion joka käyttää oletusväriä {255,255,0}
+     */
     public Palikka() {
         empty = true;
         color = new int[3];
         color = defaultColor;
         stopped = true;
     }
+    /**
+     * Luo annetun rgb värikoodin värisen palikan
+     * @param rgb 
+     */
     public Palikka(int[] rgb) {
-        empty = true;
+        empty = false;
         color = rgb;
         stopped = true;
     }
     /**
      * Säätää palikan värin
      * @param rgb Väriarvo muotoa {0..255,0..255,0..255}
-     * @throws Exception 
      */
     public void setColor(int[] rgb){
         if (rgb.length != 3) {
@@ -86,6 +91,7 @@ public class Palikka {
     }
     /**
      * Palauttaa kopion itsestään
+     * @return kopio tästä palikasta
      */
     public Palikka getCopy() {
         Palikka palautus = new Palikka();
