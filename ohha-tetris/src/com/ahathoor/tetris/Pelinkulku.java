@@ -3,7 +3,8 @@
  */
 package com.ahathoor.tetris;
 
-import java.util.Random;
+import com.ahathoor.tetris.Board.Palikka;
+import com.ahathoor.tetris.Board.TetrisAlusta;
 
 /**
  *
@@ -12,21 +13,28 @@ import java.util.Random;
 public class Pelinkulku {
     
     private TetrisAlusta board;
+    private TetrisAlusta miniboard;
     private int leveys = 10;
     private int korkeus = 20;
     private int cycle = 0;
     private int waitFor = 4;
     private PalikkaMuodot palikkamuodot;
-    private Random r = new Random();
     private PisteLaskuri pistelaskuri = new PisteLaskuri();
+    private PalikkaMuoto nextBlockShape;
+    private Palikka nextBlockType;
+    private TetrisSettings config;
     
     private int[] nextColor = {250,0,0};
     /**
      * Luo uuden pelinkulun
      */
     public Pelinkulku() {
-        board = new TetrisAlusta(leveys,korkeus);
+        config = new TetrisSettings();
+        board = new TetrisAlusta(leveys,korkeus,this);
+        miniboard = new TetrisAlusta(5,5,this);
         palikkamuodot = new PalikkaMuodot();
+           this.shuffleBlock();
+           this.shuffleShape();
     }
     /**
      * Peliä 1 aikayksikkö eteenpäin
@@ -43,24 +51,28 @@ public class Pelinkulku {
            else cycle = 0;
            if(cycle == 0 && !board.shiftBlocks(0, -1)) board.pysaytaKaikki();
        } else {
-           board.lisaaMuoto(seuraavaMuoto(), leveys/2, korkeus-1, nextBlock());
+           board.lisaaMuoto(nextBlockShape, leveys/2, korkeus-1, nextBlockType);
+           this.shuffleBlock();
+           this.shuffleShape();
+           miniboard.poistaKaikki();
+           miniboard.lisaaMuoto(nextBlockShape, 3, 3, nextBlockType);
            pistelaskuri.add(13);
        }
     }
-    private PalikkaMuoto seuraavaMuoto() {
-        int random = r.nextInt(7);
-        if (random == 0) return palikkamuodot.L;
-        if (random == 1) return palikkamuodot.L2;
-        if (random == 2) return palikkamuodot.Z;
-        if (random == 3) return palikkamuodot.Z2;
-        if (random == 4) return palikkamuodot.box;
-        if (random == 5) return palikkamuodot.T;
-        else return palikkamuodot.line;
+    
+    /**
+     * Arpoo millainen seuraava palikkamuoto tulee olemaan
+     */
+    private void shuffleShape() {
+        nextBlockShape = palikkamuodot.getRandomShape();
     }
-    private Palikka nextBlock() {
-        Palikka p = new Palikka();
-        p.setFilled(true);
-        p.setStopped(false);
+    /**
+     * Vaihtaa millaisia palikoita on tulossa seuraavaksi laudalle
+     */
+    private void shuffleBlock() {
+        nextBlockType = new Palikka();
+        nextBlockType.setFilled(true);
+        nextBlockType.setStopped(false);
         int[] c = nextColor;
         if (c[0] != 0 && c[2] == 0) {
             c[1] += 50;
@@ -74,8 +86,7 @@ public class Pelinkulku {
             c[0] += 50;
             c[2] -= 50;
         }
-        p.setColor(c);
-        return p;
+        nextBlockType.setColor(c);
     }
     public void left() {
         board.shiftBlocks(1, 0);
@@ -97,6 +108,14 @@ public class Pelinkulku {
     }
     public PisteLaskuri getPistelaskuri() {
         return pistelaskuri;
+    }
+
+    public TetrisAlusta getMiniboard() {
+        return miniboard;
+    }
+
+    public TetrisSettings getConfig() {
+        return config;
     }
     
 }

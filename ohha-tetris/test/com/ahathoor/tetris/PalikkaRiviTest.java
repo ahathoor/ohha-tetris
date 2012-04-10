@@ -4,6 +4,7 @@
  */
 package com.ahathoor.tetris;
 
+import com.ahathoor.tetris.Board.PalikkaRivi;
 import java.util.ArrayList;
 import org.junit.*;
 import static org.junit.Assert.*;

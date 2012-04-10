@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.Board;
 
 import java.util.ArrayList;
 
@@ -38,5 +38,12 @@ public class PalikkaRivi {
     public int getSize() {
         return palikat.size();
     }
-    
+    /**
+     * Tyhjentää rivin
+     */
+    public void clear() {
+        for (Palikka p:palikat) {
+            p.clear();
+        }
+    }
 }

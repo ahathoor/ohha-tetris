@@ -1,8 +1,9 @@
 /*
  * Hallinnoi ArrayListia jossa säilytetään tetrispalikoiden sijainnit,
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.Board;
 
+import com.ahathoor.tetris.Pelinkulku;
 import java.util.ArrayList;
 
 /**
@@ -11,9 +12,10 @@ import java.util.ArrayList;
  */
 public class TetrisAlusta {
     
+    private Pelinkulku kuuluuPeliin;
     private int korkeus;
     private int leveys;
-    ArrayList<PalikkaRivi> alusta = new ArrayList<PalikkaRivi>();
+    private ArrayList<PalikkaRivi> alusta = new ArrayList<PalikkaRivi>();
 
     /**
      * Palauttaa laudan leveyden
@@ -29,13 +31,6 @@ public class TetrisAlusta {
      */
     public int getKorkeus() {
         return korkeus;
-    }
-    
-    /**
-     * Uusi 10x20 Tetrisalusta 
-     */
-    public TetrisAlusta() {
-        this(10,20);
     }
     /**
      * Lisää uuden palikkamuodon
@@ -70,10 +65,11 @@ public class TetrisAlusta {
      * @param w laudan leveys
      * @param h laudan korkeus
      */
-    public TetrisAlusta(int w,int h) {
+    public TetrisAlusta(int w,int h, Pelinkulku peli) {
         //rakennetaan PalikkaRivi kerrallaan alusta
         if (w<1) w = 5;
         if (h<1) h = 5;
+        kuuluuPeliin = peli;
         korkeus = h;
         leveys = w;
         for (int rivi = 0;rivi<korkeus;rivi++) {
@@ -221,6 +217,14 @@ public class TetrisAlusta {
         }
     }
     /**
+     * Tyhjentää alustan
+     */
+    public void poistaKaikki() {
+        for (PalikkaRivi rivi : alusta) {
+            rivi.clear();
+        }
+    }
+    /**
      * Jos rivin jokainen palikka sisältää palikan, palauttaa true
      * @param rivi
      * @return 
@@ -288,5 +292,9 @@ public class TetrisAlusta {
         if (y<0)  return false;
         if (y>korkeus-1)  return false;
         return true;
+    }
+
+    public Pelinkulku getKuuluuPeliin() {
+        return kuuluuPeliin;
     }
 }
