@@ -8,8 +8,8 @@ package com.ahathoor.tetris;
  * @author ahathoor
  */
 public class PisteLaskuri {
-    private int score;
-    private int multiplier;
+    private double score;
+    public double multiplier;
     public PisteLaskuri() {
         score = 0;
         multiplier = 1;
@@ -19,24 +19,16 @@ public class PisteLaskuri {
     }
 
     public int getScore() {
-        return score;
-    }
-
-    public int getMultiplier() {
-        return multiplier;
+        return (int) score;
     }
 
     public void setScore(int score) {
         this.score = score;
     }
 
-    public void setMultiplier(int multiplier) {
-        this.multiplier = multiplier;
-    }
-
     @Override
     public String toString() {
-        return "" + score;
+        return "" + (int) score;
     }
     
 }

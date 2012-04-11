@@ -23,6 +23,7 @@ public class MainWindow extends JFrame implements KeyListener {
     private Pelinkulku peli;
     private MainPanel mainpanel;
     
+    
     public MainWindow() throws HeadlessException {
         peli = new Pelinkulku();
         mainpanel = new MainPanel(peli);
@@ -38,7 +39,7 @@ public class MainWindow extends JFrame implements KeyListener {
         Timer timer = new Timer(20, tick);
         timer.start(); 
         
-        setTitle("Tetturissy!!");
+        setTitle("TETTURISSY!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(380,500);
         add(mainpanel);
@@ -57,6 +58,13 @@ public class MainWindow extends JFrame implements KeyListener {
        if (ke.getKeyCode()==39) peli.right();
        if (ke.getKeyCode()==38) peli.up();
        if (ke.getKeyCode()==40) peli.down();
+       if (ke.getKeyCode()==113 && !peli.getConfig().RUNNING) {
+           peli.getConfig().GAMELOST = false;
+           peli.getConfig().RUNNING = true;
+           peli.getConfig().MENUSCREEN = false;
+           peli.getBoard().poistaKaikki();
+           peli.getPistelaskuri().setScore(0);
+       }
     }
 
     @Override

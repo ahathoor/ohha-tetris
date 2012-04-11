@@ -38,7 +38,7 @@ public class TetrisAlusta {
      * @param x vasen yläkulma
      * @param y vasen yläkulma  
      * @param tyyppi
-     * @return 
+     * @return true jos operaatio onnistui
      */
     public boolean lisaaMuoto (ArrayList<int[]> muoto, int x, int y, Palikka tyyppi) {
         ArrayList<int[]> lisays = new ArrayList<int[]>();

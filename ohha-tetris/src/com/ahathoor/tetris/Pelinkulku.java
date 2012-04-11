@@ -14,10 +14,10 @@ public class Pelinkulku {
     
     private TetrisAlusta board;
     private TetrisAlusta miniboard;
-    private int leveys = 10;
-    private int korkeus = 20;
+    private int leveys;
+    private int korkeus;
     private int cycle = 0;
-    private int waitFor = 4;
+    private int scoreCounter = 0;
     private PalikkaMuodot palikkamuodot;
     private PisteLaskuri pistelaskuri = new PisteLaskuri();
     private PalikkaMuoto nextBlockShape;
@@ -30,6 +30,9 @@ public class Pelinkulku {
      */
     public Pelinkulku() {
         config = new TetrisSettings();
+        leveys = config.BOARDWIDTH;
+        korkeus = config.BOARDHEIGHT;
+        
         board = new TetrisAlusta(leveys,korkeus,this);
         miniboard = new TetrisAlusta(5,5,this);
         palikkamuodot = new PalikkaMuodot();
@@ -40,6 +43,17 @@ public class Pelinkulku {
      * Peliä 1 aikayksikkö eteenpäin
      */
     public void step(){
+        if (!config.RUNNING) return;
+        
+        if (pistelaskuri.getScore() - scoreCounter > config.NEWLEVELEVERY) {
+            scoreCounter += config.NEWLEVELEVERY;
+            config.NEWLEVELEVERY *= 1.2;
+            pistelaskuri.multiplier *= 1.2;
+            if (config.WAITFOR > 0) config.WAITFOR--;
+            config.LEVEL++;
+        }
+        
+        
         for (int i=0;i<korkeus;i++) {
             if (!board.onkoLiikkuvia() && board.riviOnTaysi(i)) { 
                 board.poistaRivi(i);
@@ -47,16 +61,21 @@ public class Pelinkulku {
             }
         }
        if (board.onkoLiikkuvia()) {
-           if (cycle < waitFor) cycle++;
+           if (cycle < config.WAITFOR) cycle++;
            else cycle = 0;
            if(cycle == 0 && !board.shiftBlocks(0, -1)) board.pysaytaKaikki();
        } else {
-           board.lisaaMuoto(nextBlockShape, leveys/2, korkeus-1, nextBlockType);
+           if (!board.lisaaMuoto(nextBlockShape, leveys/2, korkeus-1, nextBlockType)){
+               //jos uusi muoto ei mahdu, seuraa häviö
+               config.RUNNING = false;
+               config.GAMELOST = true;
+               return;
+           }
            this.shuffleBlock();
            this.shuffleShape();
            miniboard.poistaKaikki();
            miniboard.lisaaMuoto(nextBlockShape, 3, 3, nextBlockType);
-           pistelaskuri.add(13);
+           pistelaskuri.add(10);
        }
     }
     
@@ -67,7 +86,7 @@ public class Pelinkulku {
         nextBlockShape = palikkamuodot.getRandomShape();
     }
     /**
-     * Vaihtaa millaisia palikoita on tulossa seuraavaksi laudalle
+     * Vaihtaa tulevan palikan tyyppiä
      */
     private void shuffleBlock() {
         nextBlockType = new Palikka();

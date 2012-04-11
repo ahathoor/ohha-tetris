@@ -4,8 +4,8 @@
 package com.ahathoor.tetris.gui;
 
 import com.ahathoor.tetris.Board.Palikka;
-import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.Board.TetrisAlusta;
+import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.TetrisSettings;
 import java.awt.Color;
 import java.awt.Graphics;

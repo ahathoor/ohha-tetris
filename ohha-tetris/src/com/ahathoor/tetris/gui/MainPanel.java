@@ -22,6 +22,8 @@ public class MainPanel extends JPanel{
     private BoardPainter lauta;
     private BoardPainter seuraavapala;
     private PisteLaskuri counter;
+    private LoseScreenPainter losepaint = new LoseScreenPainter();
+    private MenuScreenPainter menupaint = new MenuScreenPainter();
     
     public MainPanel(Pelinkulku moodi) throws HeadlessException{
         super();    
@@ -33,12 +35,20 @@ public class MainPanel extends JPanel{
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        if (peli.getConfig().MENUSCREEN) {
+            menupaint.paint(g);
+            return;
+        }
+        if (peli.getConfig().GAMELOST) {
+            losepaint.paint(g,peli.getPistelaskuri().getScore());
+            return;
+        }
         g.setColor(Color.pink);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         lauta.paint(g);
         seuraavapala.paint(g);
         char[] data = peli.getPistelaskuri().toString().toCharArray();
-        g.setColor(Color.blue);
+        g.setColor(Color.green);
         g.setFont(new Font("Console",Font.BOLD,20));
         g.drawChars(data, 0,data.length, 280, 160);
     }
