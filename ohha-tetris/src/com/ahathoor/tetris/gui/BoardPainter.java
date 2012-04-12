@@ -6,7 +6,7 @@ package com.ahathoor.tetris.gui;
 import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;
 import com.ahathoor.tetris.Pelinkulku;
-import com.ahathoor.tetris.TetrisSettings;
+import com.ahathoor.tetris.PerusPeliSettings;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -16,7 +16,7 @@ import java.awt.Graphics;
  */
 public class BoardPainter{
     
-    private TetrisSettings config;
+    private PerusPeliSettings config;
     private TetrisAlusta alusta;
     private Pelinkulku peli;
     private int width;
@@ -45,9 +45,14 @@ public class BoardPainter{
                 Palikka tutkittava = alusta.getPalikkaAt(x,y);
                 
                 //draw the blox
+                if (tutkittava.ghost) {
+                    g.setColor(tutkittava.ghostcolor);
+                    g.fillRect(offset_x + width -palikanLeveys * (x+1),
+                            offset_y + this.height-palikanKorkeus*(y+1),
+                            palikanLeveys,palikanKorkeus);
+                }
                 if (!tutkittava.isEmpty()) {
-                    int[] rgb = tutkittava.getColor();
-                    g.setColor(new Color(rgb[0],rgb[1],rgb[2]));
+                    g.setColor(tutkittava.getColor());
                     g.fillRect(offset_x + width -palikanLeveys * (x+1),
                             offset_y + this.height-palikanKorkeus*(y+1),
                             palikanLeveys,palikanKorkeus);

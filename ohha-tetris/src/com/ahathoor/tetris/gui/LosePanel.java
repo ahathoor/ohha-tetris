@@ -7,20 +7,41 @@ package com.ahathoor.tetris.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Random;
 
+    
 /**
  *
  * @author ahathoor
  */
-public class LoseScreenPainter {
+public class LosePanel extends PeliPanel {
     private char[] row1 = "THOU".toCharArray();
     private char[] row2 = "HAST".toCharArray();
     private char[] row3 = "LOST".toCharArray();
-    private char[] row4 = "F2 to start a new game".toCharArray();
+    private char[] row4 = "F2 to go to menu".toCharArray();
     
-    public void paint(Graphics g, int score) {
+    private int score = 12345;
+
+    public LosePanel(MainWindow kutsuva) {
+        super(kutsuva);
+        setVisible(true);
+    }
+    @Override
+    public void tick() {
+        super.tick();
+    }
+    public void setScore(int score) {
+        this.score = score;
+    }
+    @Override
+    public void paint(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 380, 500);
+        
+        g.setColor(Color.red);
+        
         g.setColor(Color.white);
         g.setFont(new Font("Arial",Font.BOLD,100));
         g.drawChars(row1, 0, row1.length, 10, 80);
@@ -31,4 +52,18 @@ public class LoseScreenPainter {
         g.drawChars(row5, 0, row5.length, 10, 300);
         g.drawChars(row4, 0, row4.length, 10, 315);
     }
-}
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+       if (e.getKeyCode()==113)
+            kutsuvaIkkuna.usePanel(kutsuvaIkkuna.MENURUUTU);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+    }

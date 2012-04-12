@@ -18,56 +18,43 @@ import javax.swing.Timer;
  *
  * @author ahathoor
  */
-public class MainWindow extends JFrame implements KeyListener {
+public class MainWindow extends JFrame {
     
-    private Pelinkulku peli;
-    private MainPanel mainpanel;
+    private PeliPanel mainpanel;
+    private ActionListener tick;
+    private Timer timer;
     
+    final public PeliPanel MENURUUTU = new MenuPanel(this);
+    final public PeliPanel CLASSICRUUTU = new ClassicPanel(this);
+    final public LosePanel TAPPIORUUTU = new LosePanel(this);
     
-    public MainWindow() throws HeadlessException {
-        peli = new Pelinkulku();
-        mainpanel = new MainPanel(peli);
+    final public void usePanel(PeliPanel p) {
+        for (KeyListener k : this.getKeyListeners()){
+            this.removeKeyListener(k);
+        }
+        if (mainpanel != null) this.remove(mainpanel);
+        mainpanel = p;
+        add(mainpanel);
+        mainpanel.setPreferredSize(new Dimension(380,500));
+        addKeyListener(mainpanel);
         
-        ActionListener tick = new ActionListener() {
+        tick = new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                peli.step();
-                mainpanel.repaint();
+                    mainpanel.tick();
                 }
             };
-        //Timer init//
-        Timer timer = new Timer(20, tick);
-        timer.start(); 
+        
+        timer = new Timer(20, tick);
+        timer.start();
+        setVisible(true);
+    }
+    
+    public MainWindow() throws HeadlessException { 
         
         setTitle("TETTURISSY!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(380,500);
-        add(mainpanel);
-        mainpanel.setPreferredSize(new Dimension(380,500));
-        setVisible(true);
-        addKeyListener(this);
-    
-    }
-        @Override
-    public void keyTyped(KeyEvent ke) {
-    }
-
-    @Override
-    public void keyPressed(KeyEvent ke) {
-       if (ke.getKeyCode()==37) peli.left();
-       if (ke.getKeyCode()==39) peli.right();
-       if (ke.getKeyCode()==38) peli.up();
-       if (ke.getKeyCode()==40) peli.down();
-       if (ke.getKeyCode()==113 && !peli.getConfig().RUNNING) {
-           peli.getConfig().GAMELOST = false;
-           peli.getConfig().RUNNING = true;
-           peli.getConfig().MENUSCREEN = false;
-           peli.getBoard().poistaKaikki();
-           peli.getPistelaskuri().setScore(0);
-       }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent ke) {
+        this.usePanel(MENURUUTU);
     }
 }

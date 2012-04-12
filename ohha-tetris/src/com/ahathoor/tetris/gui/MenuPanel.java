@@ -7,6 +7,7 @@ package com.ahathoor.tetris.gui;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,13 +15,19 @@ import java.util.Random;
  *
  * @author ahathoor
  */
-public class MenuScreenPainter {
+public class MenuPanel extends PeliPanel {
     private int number = 1;
     
     private ArrayList<int[]> points;
     private Random r = new Random();
+    private char[] row1 = "WELCOME".toCharArray();
+    private char[] row2 = "TO".toCharArray();
+    private char[] row3 = "TETTURISSY".toCharArray();
+    private char[] row4 = "F2 TO START NEW GAME".toCharArray();
 
-    public MenuScreenPainter() {
+    public MenuPanel(MainWindow kutsuva) {
+        super(kutsuva);
+        setVisible(true);
         points = new ArrayList<int[]>();
         points.add(new int[] {0,0});
         points.add(new int[] {0,500});
@@ -30,14 +37,10 @@ public class MenuScreenPainter {
             points.add(new int[] {r.nextInt(380), r.nextInt(500) });
         }
     }
-    
+    @Override
     public void paint(Graphics g) {
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, 380, 500);
-        char[] row1 = "WELCOME".toCharArray();
-        char[] row2 = "TO".toCharArray();
-        char[] row3 = "TETTURISSY".toCharArray();
-        char[] row4 = "F2 TO START NEW GAME".toCharArray();
         
         
         
@@ -66,5 +69,21 @@ public class MenuScreenPainter {
         g.drawChars(row3, 0, row3.length, 10-x/10, 300);
         g.setFont(new Font("Arial", Font.BOLD, 15));
         g.drawChars(row4, 0, row4.length, 150-100/(number/100+1), 390);
+        
     }
+    
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+       if (e.getKeyCode()==113) 
+            kutsuvaIkkuna.usePanel(kutsuvaIkkuna.CLASSICRUUTU);
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+    }
+    
 }

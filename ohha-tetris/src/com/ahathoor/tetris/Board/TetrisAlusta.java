@@ -3,6 +3,7 @@
  */
 package com.ahathoor.tetris.Board;
 
+import com.ahathoor.tetris.PalikkaMuodot.PalikkaMuoto;
 import com.ahathoor.tetris.Pelinkulku;
 import java.util.ArrayList;
 
@@ -46,6 +47,11 @@ public class TetrisAlusta {
             lisays.add(new int[] {x - c[0], y - c[1]});
         }
         return lisaaPalikat(lisays, tyyppi);
+    }
+    public void lisaaHaamuMuoto (ArrayList<int[]> muoto, int x, int y) {
+        for (int[] c : muoto) {
+            this.getPalikkaAt(x-c[0], y-c[1]).ghost = true;
+        }
     }
     /**
      * 
@@ -124,38 +130,22 @@ public class TetrisAlusta {
     public void flipBlock() {
         ArrayList<int[]> liikkuvat = this.getLiikkuvat();
         ArrayList<int[]> liikkuvat_trans = new ArrayList<int[]>();
-        ArrayList<float[]> relativePositions = new ArrayList<float[]>();
+        PalikkaMuoto liikkuvaMuoto = new PalikkaMuoto();
         //find the pivot of transformation of the moving blocks
-        float xka;
-        float yka;
         int xmax = 0;
         int ymax = 0;
-        int xmin = Integer.MAX_VALUE;
-        int ymin = Integer.MAX_VALUE;
         for (int[] coords : liikkuvat) {
             if (coords[0]>xmax) xmax = coords[0];
             if (coords[1]>ymax) ymax = coords[1];
-            if (coords[0]<xmin) xmin = coords[0];
-            if (coords[1]<ymin) ymin = coords[1];
         }
-        xka = (xmin+xmax)/2;
-        yka = (ymin+ymax)/2;
-        //find the relative positions to the center
-        for (int i = 0; i<liikkuvat.size();i++){
-            float x = liikkuvat.get(i)[0] - xka;
-            float y = liikkuvat.get(i)[1] - yka;
-            relativePositions.add(new float[] {x,y});
+        //find the relative positions to the upper left corner
+        for (int[] c : liikkuvat) {
+            liikkuvaMuoto.add(xmax - c[0], ymax- c[1]);
         }
-        //flip the x-y values of the relativity array
-        for (int i = 0; i<relativePositions.size();i++){
-            float x = relativePositions.get(i)[0];
-            float y = relativePositions.get(i)[1];
-            relativePositions.set(i, new float[] {y,x});
-        }
-        for (int i = 0; i<liikkuvat.size(); i++) {
-            float x = xka - relativePositions.get(i)[0];
-            float y = yka + relativePositions.get(i)[1];
-            liikkuvat_trans.add(new int[] { (int) x,(int) y});
+        liikkuvaMuoto = liikkuvaMuoto.turn();
+        liikkuvaMuoto = liikkuvaMuoto.mirror();
+        for (int[] c : liikkuvaMuoto) {
+            liikkuvat_trans.add(new int[] {xmax - c[0],ymax - c[1]});
         }
         //attempt to put this new configuration on the board
         if (!this.mahtuuko(liikkuvat_trans)) return;
@@ -185,6 +175,9 @@ public class TetrisAlusta {
         this.siirraPalat(liikkuvat, liikkuvat_trans);
         return true;
     }
+    public boolean shiftBlocks(int[] xy) {
+        return shiftBlocks(xy[0],xy[1]);
+    }
     /**
      * siirtää palikat koordinaattilistasta toiseen
      * @param mista mistä siirretään
@@ -206,10 +199,23 @@ public class TetrisAlusta {
      * Poistaa rivin laudalta
      * @param rivi 
      */
-    public void poistaRivi(int rivi) {
+    public void tyhjennaRivi(int rivi) {
         for (int i = 0; i<leveys;i++) {
             this.getPalikkaAt(i, rivi).clear();
         }
+    }
+    public void poistaRivi(int rivi) {
+        for (int i = rivi; i<korkeus-1;i++) {
+            alusta.set(i,alusta.get(i+1).kopio());
+        }
+        this.tyhjennaRivi(korkeus-1);
+        
+    }
+    /**
+     * Tekee rivit annetusta rivistä ylöspäin liikkumattomiksi
+     * @param rivi 
+     */
+    public void teeRivitLiikkuviksi(int rivi) {
         for (int j = rivi; j<korkeus;j++) {
             for (int i = 0;i<leveys;i++) {
                 if(!this.getPalikkaAt(i, j).isEmpty()) this.getPalikkaAt(i, j).setStopped(false);
@@ -293,8 +299,14 @@ public class TetrisAlusta {
         if (y>korkeus-1)  return false;
         return true;
     }
-
     public Pelinkulku getKuuluuPeliin() {
         return kuuluuPeliin;
+    }
+    public void clearGhosts() {
+        for (PalikkaRivi rivi : alusta) {
+            for (Palikka palikka : rivi.getPalikat()) {
+                palikka.ghost = false;
+            }
+        }
     }
 }

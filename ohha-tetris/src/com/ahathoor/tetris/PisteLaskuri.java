@@ -10,7 +10,9 @@ package com.ahathoor.tetris;
 public class PisteLaskuri {
     private double score;
     public double multiplier;
-    public PisteLaskuri() {
+    private String modename;
+    public PisteLaskuri(String modename) {
+        this.modename = modename;
         score = 0;
         multiplier = 1;
     }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class PalikkaRivi {
     private ArrayList<Palikka> palikat = new ArrayList<Palikka>();
+    private int pituus;
 /**
  * Luo uuden _pituus_ pituisen PalikkaRivin, pituus = [1,100]
  * @param pituus 
@@ -23,6 +24,7 @@ public class PalikkaRivi {
             //lisätään tyhjiä palikoita
             palikat.add(new Palikka());
         }
+        this.pituus = pituus;
     }
 /**
  * Palauttaa palikat ArrayListina
@@ -45,5 +47,12 @@ public class PalikkaRivi {
         for (Palikka p:palikat) {
             p.clear();
         }
+    }
+    public PalikkaRivi kopio() {
+        PalikkaRivi palautus = new PalikkaRivi(pituus);
+        for (int i = 0; i<pituus; i++) {
+            palautus.getPalikat().get(i).copyAttributes(palikat.get(i));
+        }
+        return palautus;
     }
 }

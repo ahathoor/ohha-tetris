@@ -4,53 +4,48 @@
  */
 package com.ahathoor.tetris.Board;
 
+import java.awt.Color;
+
 /**
  *
  * @author mkctammi
  */
 public class Palikka {
-    private int[] color;
-    private int[] defaultColor = new int[] {255,255,0};
+    private Color color;
     
     private boolean stopped;
     private boolean empty;
+    public boolean ghost = false;
+    public Color ghostcolor = new Color(0,255,255,100);
     /**
-     * Luo uuden Palikkaolion joka käyttää oletusväriä {255,255,0}
+     * Luo uuden Palikkaolion joka käyttää oletusväriä
      */
     public Palikka() {
         empty = true;
-        color = new int[3];
-        color = defaultColor;
+        color = Color.BLUE;
         stopped = true;
     }
     /**
      * Luo annetun rgb värikoodin värisen palikan
      * @param rgb 
      */
-    public Palikka(int[] rgb) {
+    public Palikka(Color color) {
         empty = false;
-        color = rgb;
+        this.color = color;
         stopped = true;
     }
     /**
      * Säätää palikan värin
      * @param rgb Väriarvo muotoa {0..255,0..255,0..255}
      */
-    public void setColor(int[] rgb){
-        if (rgb.length != 3) {
-            return;
-                }
-        for (int i = 0;i<3;i++){
-            if (rgb[i] > 255 || 0 > rgb[i]) return;
-            else color[i] = rgb[i];
-        }
-        
+    public void setColor(Color color){
+        this.color = color;        
     }    
     /**
-     * Palauttaa palikan värin int[] {Xr,Xg,Xb} 0<=X<=255
+     * Palauttaa palikan värin
      * @return 
      */
-    public int[] getColor() {
+    public Color getColor() {
         return color;
     }
     /**
