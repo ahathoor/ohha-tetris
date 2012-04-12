@@ -25,13 +25,14 @@ public class MainWindow extends JFrame {
     private Timer timer;
     
     final public PeliPanel MENURUUTU = new MenuPanel(this);
-    final public PeliPanel CLASSICRUUTU = new ClassicPanel(this);
     final public LosePanel TAPPIORUUTU = new LosePanel(this);
     
     final public void usePanel(PeliPanel p) {
         for (KeyListener k : this.getKeyListeners()){
             this.removeKeyListener(k);
         }
+        
+        if (tick != null) timer.removeActionListener(tick);
         if (mainpanel != null) this.remove(mainpanel);
         mainpanel = p;
         add(mainpanel);
@@ -44,10 +45,9 @@ public class MainWindow extends JFrame {
                     mainpanel.tick();
                 }
             };
-        
-        timer = new Timer(20, tick);
-        timer.start();
         setVisible(true);
+        timer.addActionListener(tick);
+        timer.start();
     }
     
     public MainWindow() throws HeadlessException { 
@@ -55,6 +55,8 @@ public class MainWindow extends JFrame {
         setTitle("TETTURISSY!!");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(380,500);
+        timer = new Timer(20, tick);
         this.usePanel(MENURUUTU);
+        
     }
 }

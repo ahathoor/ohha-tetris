@@ -79,7 +79,7 @@ public class MenuPanel extends PeliPanel {
     @Override
     public void keyPressed(KeyEvent e) {
        if (e.getKeyCode()==113) 
-            kutsuvaIkkuna.usePanel(kutsuvaIkkuna.CLASSICRUUTU);
+            kutsuvaIkkuna.usePanel(new ClassicPanel(kutsuvaIkkuna));
     }
 
     @Override
