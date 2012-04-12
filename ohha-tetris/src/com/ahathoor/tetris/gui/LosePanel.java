@@ -60,7 +60,7 @@ public class LosePanel extends PeliPanel {
     @Override
     public void keyPressed(KeyEvent e) {
        if (e.getKeyCode()==113)
-            kutsuvaIkkuna.usePanel(kutsuvaIkkuna.MENURUUTU);
+            kutsuvaIkkuna.usePanel(new MenuPanel(kutsuvaIkkuna));
     }
 
     @Override

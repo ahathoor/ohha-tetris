@@ -39,8 +39,9 @@ public class ClassicPanel extends PeliPanel {
     public void paint(Graphics g) {
         super.paint(g);
         if (peli.getConfig().gamelost) {
-            kutsuvaIkkuna.TAPPIORUUTU.setScore(peli.getScore());
-            kutsuvaIkkuna.usePanel(kutsuvaIkkuna.TAPPIORUUTU);
+            LosePanel losepanel = new LosePanel(kutsuvaIkkuna);
+            losepanel.setScore(peli.getScore());
+            kutsuvaIkkuna.usePanel(losepanel);
         }
         g.setColor(Color.pink);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());

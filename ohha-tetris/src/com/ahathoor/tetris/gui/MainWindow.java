@@ -24,9 +24,6 @@ public class MainWindow extends JFrame {
     private ActionListener tick;
     private Timer timer;
     
-    final public PeliPanel MENURUUTU = new MenuPanel(this);
-    final public LosePanel TAPPIORUUTU = new LosePanel(this);
-    
     final public void usePanel(PeliPanel p) {
         for (KeyListener k : this.getKeyListeners()){
             this.removeKeyListener(k);
@@ -56,7 +53,7 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(380,500);
         timer = new Timer(20, tick);
-        this.usePanel(MENURUUTU);
+        this.usePanel(new MenuPanel(this));
         
     }
 }
