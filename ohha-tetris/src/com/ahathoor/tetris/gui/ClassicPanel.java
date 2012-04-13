@@ -67,7 +67,8 @@ public class ClassicPanel extends PeliPanel {
        if (ke.getKeyCode()==39) peli.right();
        if (ke.getKeyCode()==38) peli.flip();
        if (ke.getKeyCode()==40) peli.down();
-       if (ke.getKeyChar()=="S".charAt(0)) peli.up();
+       if (ke.getKeyChar()=="s".charAt(0)) peli.up();
+       if (ke.getKeyChar()=="d".charAt(0)) peli.getBoard().pysaytaKaikki();
        if (ke.getKeyCode()==113) {
            peli.startGame();
        }

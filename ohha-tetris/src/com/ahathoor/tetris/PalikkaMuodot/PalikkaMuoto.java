@@ -52,11 +52,11 @@ public class PalikkaMuoto extends ArrayList<int[]>{
                 palautus.add(arvo[0]*2+1,arvo[1]*2);
                 palautus.add(arvo[0]*2+1,arvo[1]*2+1);
             }
-            if (x) {
+            if (x && !y) {
                 palautus.add(arvo[0]*2,arvo[1]);
                 palautus.add(arvo[0]*2+1,arvo[1]);               
             }
-            if (y) {
+            if (y && !x) {
                 palautus.add(arvo[0],arvo[1]*2);
                 palautus.add(arvo[0],arvo[1]*2+1);               
             }
