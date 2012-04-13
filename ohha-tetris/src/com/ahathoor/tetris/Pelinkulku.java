@@ -1,8 +1,9 @@
 /*
- * Pelinkulku määrittelee säännöt tetriksen pelimoodiin
+ * hallinnoi lautaa tetrismäiseen tyyliin
  */
 package com.ahathoor.tetris;
 
+import com.ahathoor.tetris.ColorStuff.ColorFeeder;
 import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;
 import com.ahathoor.tetris.PalikkaMuodot.MuotoFeeder;
@@ -69,16 +70,20 @@ public class Pelinkulku {
             config.scoreToLevel *= config.multiplierGrowX;
             pistelaskuri.multiplier *= config.multiplierGrowX;
             config.level++;
-            if (config.waitFor > 0) config.waitFor--;
+            if (config.waitFor > 0) config.waitFor -= config.gameHardensBy;
         }
         
         
         for (int i=0;i<korkeus;i++) {
             if (!board.onkoLiikkuvia() && board.riviOnTaysi(i)) { 
-                board.tyhjennaRivi(i);
                 
-                if (config.clearingMakesMovables)
+                if (config.clearingMakesMovables) {
                     board.teeRivitLiikkuviksi(i);
+                    for (int j=0;j<korkeus;j++) {
+                        if (board.riviOnTaysi(j))
+                            board.tyhjennaRivi(j);
+                    }
+                }
                 else {
                     board.poistaRivi(i);
                     i--;

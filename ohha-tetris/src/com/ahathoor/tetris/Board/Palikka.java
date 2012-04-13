@@ -4,7 +4,7 @@
  */
 package com.ahathoor.tetris.Board;
 
-import java.awt.Color;
+import com.ahathoor.tetris.ColorStuff.Color;
 
 /**
  *

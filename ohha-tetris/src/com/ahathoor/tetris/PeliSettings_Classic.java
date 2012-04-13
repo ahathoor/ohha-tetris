@@ -3,6 +3,8 @@
  */
 package com.ahathoor.tetris;
 
+import com.ahathoor.tetris.ColorStuff.CyclingColor;
+import com.ahathoor.tetris.ColorStuff.ColorFeeder;
 import com.ahathoor.tetris.PalikkaMuodot.*;
 import java.util.Properties;
 
@@ -18,6 +20,7 @@ public class PeliSettings_Classic {
     public int level;
     public float scoreToLevel;
     public float multiplierGrowX;
+    public int gameHardensBy;
     public int scoreFromBlock;
     public int scoreFromRow;
     public int boardWidth;
@@ -55,6 +58,7 @@ public class PeliSettings_Classic {
         waitFor = 20;
         level = 1;
         scoreToLevel = 1000;
+        gameHardensBy = 2;
         multiplierGrowX = (float) 1.2;
         scoreFromBlock = 10;
         scoreFromRow = 290;

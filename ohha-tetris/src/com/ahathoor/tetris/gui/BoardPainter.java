@@ -7,7 +7,7 @@ import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;
 import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.PeliSettings_Classic;
-import java.awt.Color;
+import com.ahathoor.tetris.ColorStuff.Color;
 import java.awt.Graphics;
 
 /**
@@ -34,7 +34,7 @@ public class BoardPainter{
         config = peli.getConfig();
     }
     public void paint(Graphics g) {
-        g.setColor(Color.black);
+        g.setColor(Color.black.getAwtColor());
         
         int palikanLeveys = width/alusta.getLeveys();
         int palikanKorkeus = height/alusta.getKorkeus();
@@ -46,20 +46,20 @@ public class BoardPainter{
                 
                 //draw the blox
                 if (tutkittava.ghost) {
-                    g.setColor(tutkittava.ghostcolor);
+                    g.setColor(tutkittava.ghostcolor.getAwtColor());
                     g.fillRect(offset_x + width -palikanLeveys * (x+1),
                             offset_y + this.height-palikanKorkeus*(y+1),
                             palikanLeveys,palikanKorkeus);
                 }
                 if (!tutkittava.isEmpty()) {
-                    g.setColor(tutkittava.getColor());
+                    g.setColor(tutkittava.getColor().getAwtColor());
                     g.fillRect(offset_x + width -palikanLeveys * (x+1),
                             offset_y + this.height-palikanKorkeus*(y+1),
                             palikanLeveys,palikanKorkeus);
                 }
                 
                 //draw the grid
-                g.setColor(Color.white);
+                g.setColor(Color.white.getAwtColor());
                 if(!config.INVISIBULU) g.drawRect(offset_x + width -palikanLeveys * (x+1),
                             offset_y + this.height-palikanKorkeus*(y+1),
                             palikanLeveys,palikanKorkeus);
