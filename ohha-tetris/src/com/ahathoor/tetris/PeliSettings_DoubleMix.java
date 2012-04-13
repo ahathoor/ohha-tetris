@@ -12,6 +12,7 @@ import com.ahathoor.tetris.PalikkaMuodot.*;
 public class PeliSettings_DoubleMix extends PeliSettings_Classic{
 
     public PeliSettings_DoubleMix() {
+        super();
         this.modename = "DoubleMix Tetturibbli";
         this.boardWidth = 20;
         this.boardHeight = 40;
@@ -24,6 +25,7 @@ public class PeliSettings_DoubleMix extends PeliSettings_Classic{
         this.blockfeeder = new MuotoF_MixWithDoubled(new PerusMuodot());
         this.fallPast = true;
         this.clearingMakesMovables = true;
+        this.canStopMidFlight = true;
         
     }
 }

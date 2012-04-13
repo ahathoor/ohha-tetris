@@ -7,7 +7,6 @@ import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;
 import com.ahathoor.tetris.PalikkaMuodot.MuotoFeeder;
 import com.ahathoor.tetris.PalikkaMuodot.PalikkaMuoto;
-import java.awt.Color;
 
 /**
  *
@@ -26,6 +25,7 @@ public class Pelinkulku {
     private PisteLaskuri pistelaskuri;
     private PalikkaMuoto nextBlockShape;
     private Palikka nextBlockType = new Palikka();
+    private Ilmoittaja ilmoittaja = new Ilmoittaja();
     private PeliSettings_Classic config;
     /**
      * Luo uuden pelinkulun
@@ -48,6 +48,11 @@ public class Pelinkulku {
         board.poistaKaikki();
         pistelaskuri.setScore(0);
         config.waitFor = config.waitFor_init;
+        config.level = 1;
+        ilmoittaja.nollaa();
+    }
+    public Ilmoittaja getIlmoittaja() {
+        return ilmoittaja;
     }
     public void pause() {
         config.running = !config.running;
@@ -57,11 +62,13 @@ public class Pelinkulku {
      */
     public void step(){
         if (!config.running) return;
+        ilmoittaja.tick();
         
         if (pistelaskuri.getScore() - scoreCounter > config.scoreToLevel) {
             scoreCounter += config.scoreToLevel;
             config.scoreToLevel *= config.multiplierGrowX;
             pistelaskuri.multiplier *= config.multiplierGrowX;
+            config.level++;
             if (config.waitFor > 0) config.waitFor--;
         }
         
@@ -77,6 +84,7 @@ public class Pelinkulku {
                     i--;
                 }
                 pistelaskuri.add(config.scoreFromRow);
+                ilmoittaja.ilmoita("OHYEAUGOTRIVI", 20);
             }
         }
        if (board.onkoLiikkuvia()) {
@@ -164,6 +172,13 @@ public class Pelinkulku {
 
     public int getScore() {
         return pistelaskuri.getScore();
+    }
+
+    public void stop() {
+        if (config.canStopMidFlight) board.pysaytaKaikki();
+    }
+    public int getLevel() {
+        return config.level;
     }
     
 }
