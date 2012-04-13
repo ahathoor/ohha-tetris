@@ -43,13 +43,23 @@ public class PalikkaMuoto extends ArrayList<int[]>{
         }
         return palautus;
     }
-    public PalikkaMuoto embiggen() {
+    public PalikkaMuoto embiggen(boolean x, boolean y) {
         PalikkaMuoto palautus = new PalikkaMuoto();
         for (int[] arvo: this) {
-            palautus.add(arvo[0]*2,arvo[1]*2);
-            palautus.add(arvo[0]*2,arvo[1]*2+1);
-            palautus.add(arvo[0]*2+1,arvo[1]*2);
-            palautus.add(arvo[0]*2+1,arvo[1]*2+1);
+            if(y && y) {
+                palautus.add(arvo[0]*2,arvo[1]*2);
+                palautus.add(arvo[0]*2,arvo[1]*2+1);
+                palautus.add(arvo[0]*2+1,arvo[1]*2);
+                palautus.add(arvo[0]*2+1,arvo[1]*2+1);
+            }
+            if (x) {
+                palautus.add(arvo[0]*2,arvo[1]);
+                palautus.add(arvo[0]*2+1,arvo[1]);               
+            }
+            if (y) {
+                palautus.add(arvo[0],arvo[1]*2);
+                palautus.add(arvo[0],arvo[1]*2+1);               
+            }
         }
         return palautus;
         

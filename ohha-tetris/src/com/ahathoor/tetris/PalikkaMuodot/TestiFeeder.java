@@ -10,7 +10,7 @@ import java.util.Random;
  *
  * @author ahathoor
  */
-public class PerusMuodot implements MuotoFeeder {
+public class TestiFeeder implements MuotoFeeder {
     public PalikkaMuoto L;
     public PalikkaMuoto Z;
     public PalikkaMuoto L2;
@@ -21,23 +21,12 @@ public class PerusMuodot implements MuotoFeeder {
     public ArrayList<PalikkaMuoto> shapes;
     private Random r = new Random();
 
-    public PerusMuodot() {
+    public TestiFeeder() {
         shapes = new ArrayList<PalikkaMuoto>();
         
-        L = new MuotoL();
-        L2 = L.mirror();
-        Z = new MuotoZ();
-        Z2 = Z.mirror();
-        box = new MuotoBox();
-        I = new MuotoLine();
-        T = new MuotoT();
-        
-        shapes.add(L);
-        shapes.add(L2);
-        shapes.add(Z);
-        shapes.add(Z2);
-        shapes.add(T);
-        shapes.add(box);
+        I = new PalikkaMuoto();
+        I.add(0,0);
+        I.add(0,5);
         shapes.add(I);
     }
     @Override

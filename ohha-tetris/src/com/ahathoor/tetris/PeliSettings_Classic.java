@@ -9,7 +9,7 @@ import com.ahathoor.tetris.PalikkaMuodot.*;
  *
  * @author ahathoor
  */
-public class PerusPeliSettings {
+public class PeliSettings_Classic {
     public String modename = "Classic Tetturibbli";
     
     public int waitFor_init = 20;
@@ -20,6 +20,7 @@ public class PerusPeliSettings {
     public int scoreFromRow = 290;
     public int boardWidth = 10;
     public int boardHeight = 20;
+    public int lowestRow = 0;
     public int nextBlockX = 5;
     public int nextBlockY = boardHeight-1;
     public int miniBoardWidth = 4;
@@ -38,7 +39,8 @@ public class PerusPeliSettings {
     public boolean gamelost = false;
     public boolean INVISIBULU = false;
     public boolean clearingMakesMovables = false;
+    public boolean fallPast = false;
     public boolean gliding = true;
-    public int glideAmount = 10;
+    public int glideAmount = 8;
     public boolean ghostshapes = false;
 }

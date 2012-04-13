@@ -10,12 +10,17 @@ import java.util.Random;
  *
  * @author ahathoor
  */
-public class PerusMuodotDouble extends PerusMuodot {
+public class MuotoF_MixWithStretcheds implements MuotoFeeder {
     private Random r = new Random();
+    MuotoFeeder source;
+
+    public MuotoF_MixWithStretcheds(MuotoFeeder source) {
+        this.source = source;
+    }
+    
     @Override
     public PalikkaMuoto getNextShape() {
-        if (r.nextBoolean()) return super.getNextShape().embiggen();
-        else return super.getNextShape();
+        return source.getNextShape().embiggen(r.nextBoolean(),r.nextBoolean());
     }
     
 }

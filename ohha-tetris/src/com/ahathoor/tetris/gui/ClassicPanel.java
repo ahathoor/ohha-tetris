@@ -6,7 +6,8 @@ package com.ahathoor.tetris.gui;
 
 import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.PisteLaskuri;
-import com.ahathoor.tetris.PerusPeliSettings;
+import com.ahathoor.tetris.PeliSettings_Classic;
+import com.ahathoor.tetris.PeliSettings_DoubleMix;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -23,8 +24,11 @@ public class ClassicPanel extends PeliPanel {
     private BoardPainter seuraavapala;
     
     public ClassicPanel(MainWindow kutsuva) {
+        this(kutsuva, new PeliSettings_Classic());
+    }
+    public ClassicPanel(MainWindow kutsuva, PeliSettings_Classic p) {
         super(kutsuva);    
-        peli = new Pelinkulku(new PerusPeliSettings());
+        peli = new Pelinkulku(p);
         lauta = new BoardPainter(200,400,50,30,peli.getBoard());
         seuraavapala = new BoardPainter(50,50,290,80,peli.getMiniboard());
         peli.startGame();

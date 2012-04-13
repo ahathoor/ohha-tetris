@@ -204,12 +204,16 @@ public class TetrisAlusta {
             this.getPalikkaAt(i, rivi).clear();
         }
     }
+    public void pysaytaRivi(int rivi) {
+        for (int i = 0; i<leveys;i++) {
+            this.getPalikkaAt(i, rivi).setStopped(true);
+        }
+    }
     public void poistaRivi(int rivi) {
         for (int i = rivi; i<korkeus-1;i++) {
             alusta.set(i,alusta.get(i+1).kopio());
         }
         this.tyhjennaRivi(korkeus-1);
-        
     }
     /**
      * Tekee rivit annetusta rivistä ylöspäin liikkumattomiksi
@@ -221,6 +225,32 @@ public class TetrisAlusta {
                 if(!this.getPalikkaAt(i, j).isEmpty()) this.getPalikkaAt(i, j).setStopped(false);
             }
         }
+    }
+    public void recursingUnMover() {
+        boolean jotainTapahtui = false;
+        for (int[] c : this.getLiikkuvat()) {
+            if (hasStoppedNeighbors(c[0],c[1])) {
+                this.getPalikkaAt(c[0], c[1]).setStopped(true);
+                jotainTapahtui = true;
+            }
+        }
+        if (jotainTapahtui) this.recursingUnMover();
+        return;
+    }
+    public boolean hasStoppedNeighbors(int x, int y) {
+        if (this.getPalikkaAt(x+1,y) != null)
+            if (this.getPalikkaAt(x+1,y).isStopped() && !this.getPalikkaAt(x+1,y).isEmpty())
+                return true;
+        if (this.getPalikkaAt(x-1,y) != null)
+            if (this.getPalikkaAt(x-1,y).isStopped() && !this.getPalikkaAt(x-1,y).isEmpty())
+                return true;
+        if (this.getPalikkaAt(x,y+1) != null)
+            if (this.getPalikkaAt(x,y+1).isStopped() && !this.getPalikkaAt(x,y+1).isEmpty())
+                return true;
+        if (this.getPalikkaAt(x,y-1) != null)
+            if (this.getPalikkaAt(x,y-1).isStopped() && !this.getPalikkaAt(x,y-1).isEmpty())
+                return true;
+        return false;
     }
     /**
      * Tyhjentää alustan

@@ -26,11 +26,11 @@ public class Pelinkulku {
     private PisteLaskuri pistelaskuri;
     private PalikkaMuoto nextBlockShape;
     private Palikka nextBlockType = new Palikka();
-    private PerusPeliSettings config;
+    private PeliSettings_Classic config;
     /**
      * Luo uuden pelinkulun
      */
-    public Pelinkulku(PerusPeliSettings ts) {
+    public Pelinkulku(PeliSettings_Classic ts) {
         config = ts;
         leveys = config.boardWidth;
         korkeus = config.boardHeight;
@@ -82,7 +82,15 @@ public class Pelinkulku {
        if (board.onkoLiikkuvia()) {
            if (cycle < config.waitFor) cycle++;
            else cycle = 0;
-           if(cycle == 0 && !board.shiftBlocks(config.gravShift)) board.pysaytaKaikki();
+           if(cycle == 0 && !board.shiftBlocks(config.gravShift)) {
+               if (config.fallPast) {
+                   board.pysaytaRivi(config.lowestRow);
+                   board.recursingUnMover();
+                   cycle = -1;
+               } else {
+                   board.pysaytaKaikki();
+               }
+           }
        } else {
            if (!board.lisaaMuoto(nextBlockShape, 
                                 config.nextBlockX, config.nextBlockY, 
@@ -133,7 +141,7 @@ public class Pelinkulku {
         board.shiftBlocks(config.upShift);
     }
     public void down() {
-        board.shiftBlocks(config.downShift);
+        if (!board.shiftBlocks(config.downShift)) cycle = -1;
     }
     public void flip() {
         board.flipBlock();
@@ -150,7 +158,7 @@ public class Pelinkulku {
         return miniboard;
     }
 
-    public PerusPeliSettings getConfig() {
+    public PeliSettings_Classic getConfig() {
         return config;
     }
 

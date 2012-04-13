@@ -6,7 +6,7 @@ package com.ahathoor.tetris.gui;
 import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;
 import com.ahathoor.tetris.Pelinkulku;
-import com.ahathoor.tetris.PerusPeliSettings;
+import com.ahathoor.tetris.PeliSettings_Classic;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -16,7 +16,7 @@ import java.awt.Graphics;
  */
 public class BoardPainter{
     
-    private PerusPeliSettings config;
+    private PeliSettings_Classic config;
     private TetrisAlusta alusta;
     private Pelinkulku peli;
     private int width;

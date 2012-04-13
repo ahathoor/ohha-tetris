@@ -11,5 +11,4 @@ import java.util.ArrayList;
  */
 public interface MuotoFeeder {
     abstract public PalikkaMuoto getNextShape();
-    abstract public ArrayList<PalikkaMuoto> getShapes();
 }

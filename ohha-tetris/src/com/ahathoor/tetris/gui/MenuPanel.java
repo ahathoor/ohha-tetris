@@ -4,6 +4,7 @@
  */
 package com.ahathoor.tetris.gui;
 
+import com.ahathoor.tetris.PeliSettings_DoubleMix;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -80,7 +81,10 @@ public class MenuPanel extends PeliPanel {
     public void keyPressed(KeyEvent e) {
        if (e.getKeyCode()==113) 
             kutsuvaIkkuna.usePanel(new ClassicPanel(kutsuvaIkkuna));
+       if (e.getKeyCode()==114) 
+            kutsuvaIkkuna.usePanel(new ClassicPanel(kutsuvaIkkuna,new PeliSettings_DoubleMix()));    
     }
+    
 
     @Override
     public void keyReleased(KeyEvent e) {
