@@ -9,9 +9,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map.Entry;
-import java.util.Set;
 
 /**
  *
@@ -25,6 +26,53 @@ public class HighScores {
         scores = new HashMap<String,HashMap<String,Integer>>();
     }
 
+    public HighScores(String path) {
+        this();
+        readFromFile(path);
+    }
+    /**
+     * Returns the nth highest score
+     * @param game
+     * @param position
+     * @return 
+     */
+    public ArrayList<Score> sortedScore(String game){
+        ArrayList<Score> palautus = new ArrayList<Score>();
+        if (!scores.containsKey(game)) {
+            palautus.add(new Score("Nosuchgame - " + game,666));
+            return palautus;
+        }
+        int size = scores.get(game).size();
+        //Kootaan arvoparit kahteen taulukkoon
+        String[] nimet = new String[size];
+        String[] nimet_sort = new String[size];
+        int[] scoret = new int[size];
+        int[] scoret_sort = new int[size];
+        int f = 0;
+        for (Entry<String,Integer> pari : scores.get(game).entrySet()) {
+            nimet[f] = pari.getKey();
+            scoret[f] = pari.getValue();
+            f++;
+        }
+        //Järjestetään taulukot
+        for (int i=0; i<size; i++) {
+            int max = Integer.MIN_VALUE;
+            int maxIndex = -1;
+            for (int j=0;j<size;j++) {
+                if (scoret[j]>max) {
+                    max = scoret[j];
+                    maxIndex = j;
+                }
+            }
+            scoret_sort[i] = scoret[maxIndex];
+            scoret[maxIndex] = Integer.MIN_VALUE;
+            nimet_sort[i] = nimet[maxIndex];
+        }
+        for (int i = 0;i<size;i++) {
+            palautus.add(new Score(nimet_sort[i].split("%split%")[1],scoret_sort[i]));
+        }
+        return palautus;
+    }
     public boolean readFromFile(String path) {
         HashMap<String,HashMap<String,Integer>> map = null;
         FileInputStream fis = null;
@@ -56,6 +104,11 @@ public class HighScores {
             return false;
         }
         return true;
+    }
+    public boolean canTakeScore(String game,int score) {
+        if (thereIsLower(game,score)) return true;
+        if (hasRoomForScore(game)) return true;
+        return false;
     }
     private boolean thereIsLower(String game, int score) {
         if(scores.containsKey(game)){
@@ -93,43 +146,29 @@ public class HighScores {
         scores.get(game).remove(minkey);
     }
     public void putScore(String game, String name, int score) {
+        Calendar cal = Calendar.getInstance();
+        String time = cal.getTime().toString();
         if (this.hasRoomForScore(game)){
-            scores.get(game).put(name, score);
+            scores.get(game).put(time + "%split%" + name , score);
             return;
         }
         if (this.thereIsLower(game, score)){
             kickOutLowest(game);
-            scores.get(game).put(name, score);
+            scores.get(game).put(time + "%split%" + name, score);
         }
     }
-
     @Override
     public String toString() {
         String palautus = "";
         for (String game : scores.keySet()) {
             palautus += (game + ":\n");
             for (String name : scores.get(game).keySet()) {
-                palautus += "\t" + name + "   ---   " + scores.get(game).get(name) + "\n";
+                palautus += "\t" + name.split("%split%")[1] + "   ---   " + scores.get(game).get(name) + "\n";
             }
         }
         return palautus;
     }
     
     public static void main(String[] args) {
-        HighScores hs = new HighScores();
-        hs.putScore("AlloBallo", "yy", 99999);
-        hs.putScore("AlloBallo", "kaa", 199999);
-        hs.putScore("AlloBallo", "koo", 199999);
-        hs.putScore("AlloBallo", "ne", 199999);
-        hs.putScore("AlloBallo", "vi", 199999);
-        hs.putScore("AlloBallo", "ku", 199999);
-        hs.putScore("AlloBallo", "se", 199999);
-        hs.putScore("AlloBallo", "kaas", 199999);
-        hs.putScore("AlloBallo", "yys", 199999);
-        hs.putScore("AlloBallo", "kyyb", 199999);
-        hs.putScore("AlloBallo", "yyto", 199999);
-        hs.putScore("AlloBallo", "kaato", 199999);
-        hs.writeToFile("data/scores.dat");
-        System.out.println(hs.toString());
     }
 }

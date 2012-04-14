@@ -4,12 +4,12 @@
  */
 package com.ahathoor.tetris.gui;
 
+import com.ahathoor.tetris.gui.painters.HighScorePainter;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Random;
+import javax.swing.JOptionPane;
 
     
 /**
@@ -22,18 +22,20 @@ public class LosePanel extends PeliPanel {
     private char[] row3 = "LOST".toCharArray();
     private char[] row4 = "F2 to go to menu".toCharArray();
     
-    private int score = 12345;
+    private int score;
+    private String game;
+    private HighScorePainter hspaint;
 
-    public LosePanel(MainWindow kutsuva) {
+    public LosePanel(MainWindow kutsuva,String game, int score) {
         super(kutsuva);
         setVisible(true);
+        this.game = game;
+        this.score = score;
+        hspaint = new HighScorePainter(kutsuva.getHighScores(), game, 150, 300, 200, 150, 10);
     }
     @Override
     public void tick() {
         super.tick();
-    }
-    public void setScore(int score) {
-        this.score = score;
     }
     @Override
     public void paint(Graphics g) {
@@ -51,6 +53,7 @@ public class LosePanel extends PeliPanel {
         char[] row5 = ("Thine Score Was " + score).toCharArray();
         g.drawChars(row5, 0, row5.length, 10, 300);
         g.drawChars(row4, 0, row4.length, 10, 315);
+        hspaint.paint(g);
     }
 
     @Override

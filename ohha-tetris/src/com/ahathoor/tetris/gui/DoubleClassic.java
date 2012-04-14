@@ -61,9 +61,9 @@ public class DoubleClassic extends PeliPanel {
     public void paint(Graphics g) {
         super.paint(g);
         if (peli.getConfig().gamelost || peli2.getConfig().gamelost) {
-            LosePanel losepanel = new LosePanel(kutsuvaIkkuna);
-            losepanel.setScore(peli.getScore() + peli2.getScore());
+            LosePanel losepanel = new LosePanel(kutsuvaIkkuna, "DoblClasi", peli.getScore()+peli2.getScore());
             kutsuvaIkkuna.usePanel(losepanel);
+            kutsuvaIkkuna.score("DoubleClassic", peli.getScore()+peli2.getScore());
         }
         g.setColor(Color.black);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
