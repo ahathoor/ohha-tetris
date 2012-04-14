@@ -89,7 +89,7 @@ public class ClassicPanel extends PeliPanel {
        if (ke.getKeyCode()==113) {
            peli.startGame();
        }
-       if (ke.getKeyCode()==114) {
+       if (ke.getKeyChar()=="p".charAt(0)) {
            peli.pause();
        }
     }

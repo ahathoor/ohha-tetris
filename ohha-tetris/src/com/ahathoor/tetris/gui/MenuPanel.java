@@ -26,6 +26,7 @@ public class MenuPanel extends PeliPanel {
     private char[] row3 = "TETTURISSY".toCharArray();
     private char[] row4 = "F2 TO START NEW CLASSIC GAME".toCharArray();
     private char[] row5 = "F3 TO START NEW DOUBLEMIX GAME".toCharArray();
+    private char[] row6 = "F4 TO START NEW DBLCLASSIC GAME".toCharArray();
 
     public MenuPanel(MainWindow kutsuva) {
         super(kutsuva);
@@ -74,6 +75,8 @@ public class MenuPanel extends PeliPanel {
         g.drawChars(row4, 0, row4.length, 50-x/20, 390);
         g.setColor(Color.red);
         g.drawChars(row5, 0, row5.length, 50+x/20, 405);
+        g.setColor(Color.blue);
+        g.drawChars(row6, 0, row6.length, 50+x/20, 420-y/20);
         
     }
     
