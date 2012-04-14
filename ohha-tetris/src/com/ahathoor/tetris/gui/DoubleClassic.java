@@ -4,12 +4,13 @@
  */
 package com.ahathoor.tetris.gui;
 
+import com.ahathoor.tetris.gui.painters.InvertedBoardPainter;
 import com.ahathoor.tetris.gui.painters.BoardPainter;
+import com.ahathoor.tetris.ColorStuff.JustYellow;
+import com.ahathoor.tetris.ColorStuff.JustRed;
 import com.ahathoor.tetris.Ilmoittaja;
 import com.ahathoor.tetris.Pelinkulku;
-import com.ahathoor.tetris.PisteLaskuri;
 import com.ahathoor.tetris.PeliSettings_Classic;
-import com.ahathoor.tetris.PeliSettings_DoubleMix;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -21,46 +22,59 @@ import java.util.Map;
  *
  * @author ahathoor
  */
-public class ClassicPanel extends PeliPanel {
+public class DoubleClassic extends PeliPanel {
     
     private Pelinkulku peli;
+    private Pelinkulku peli2;
     private BoardPainter lauta;
+    private InvertedBoardPainter lauta2;
     private BoardPainter seuraavapala;
+    private BoardPainter seuraavapala2;
     private Ilmoittaja ilmoittaja;
     
-    public ClassicPanel(MainWindow kutsuva) {
-        this(kutsuva, new PeliSettings_Classic());
-    }
-    public ClassicPanel(MainWindow kutsuva, PeliSettings_Classic p) {
+    public DoubleClassic(MainWindow kutsuva) {
         super(kutsuva);    
-        peli = new Pelinkulku(p);
+        peli = new Pelinkulku(new PeliSettings_Classic());
+        peli2 = new Pelinkulku(new PeliSettings_Classic());
         ilmoittaja = peli.getIlmoittaja();
         lauta = new BoardPainter(200,400,50,30,peli.getBoard());
+        lauta.forceAlpha = true;
+        lauta.forcedAlpha = 200;
+        lauta2 = new InvertedBoardPainter(200,400,50,30,peli2.getBoard());
+        lauta2.forceAlpha = true;
+        lauta2.forcedAlpha = 200;
         seuraavapala = new BoardPainter(50,50,290,80,peli.getMiniboard());
+        seuraavapala2 = new BoardPainter(50,50,290,300,peli2.getMiniboard());
+        peli.setColorfeeder(new JustYellow());
+        peli2.setColorfeeder(new JustRed());
         peli.startGame();
+        peli2.startGame();
         setVisible(true);
     }
     @Override
     public void tick() {
         super.tick();
         peli.step();
+        peli2.step();
     }
         @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if (peli.getConfig().gamelost) {
+        if (peli.getConfig().gamelost || peli2.getConfig().gamelost) {
             LosePanel losepanel = new LosePanel(kutsuvaIkkuna);
-            losepanel.setScore(peli.getScore());
+            losepanel.setScore(peli.getScore() + peli2.getScore());
             kutsuvaIkkuna.usePanel(losepanel);
         }
-        g.setColor(Color.pink);
+        g.setColor(Color.black);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         lauta.paint(g);
+        lauta2.paint(g);
         seuraavapala.paint(g);
-        char[] data = (peli.getScore() + "").toCharArray();
+        seuraavapala2.paint(g);
+        char[] score = ((peli.getScore()+peli2.getScore()) + "").toCharArray();
         g.setColor(Color.green);
         g.setFont(new Font("Console",Font.BOLD,20));
-        g.drawChars(data, 0,data.length, 280, 160);
+        g.drawChars(score, 0,score.length, 280, 160);
         //ilmoitukset pöytään
             Iterator i = ilmoittaja.getIlmoitukset().iterator();
             while (i.hasNext()) {
@@ -84,13 +98,17 @@ public class ClassicPanel extends PeliPanel {
        if (ke.getKeyCode()==39) peli.right();
        if (ke.getKeyCode()==38) peli.flip();
        if (ke.getKeyCode()==40) peli.down();
-       if (ke.getKeyChar()=="s".charAt(0)) peli.up();
-       if (ke.getKeyChar()=="d".charAt(0)) peli.stop();
+       if (ke.getKeyChar()=="s".charAt(0)) peli2.down();
+       if (ke.getKeyChar()=="a".charAt(0)) peli2.left();
+       if (ke.getKeyChar()=="w".charAt(0)) peli2.flip();
+       if (ke.getKeyChar()=="d".charAt(0)) peli2.right();
        if (ke.getKeyCode()==113) {
            peli.startGame();
+           peli2.startGame();
        }
-       if (ke.getKeyCode()==114) {
+       if (ke.getKeyChar()=="p".charAt(0)) {
            peli.pause();
+           peli2.pause();
        }
     }
 

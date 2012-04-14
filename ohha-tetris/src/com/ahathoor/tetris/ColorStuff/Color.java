@@ -39,6 +39,10 @@ public class Color {
     public int getAlpha() {
         return alpha;
     }
+
+    public void setAlpha(int alpha) {
+        this.alpha = alpha;
+    }
     /**
      * returns an awt usable color
      * @return 

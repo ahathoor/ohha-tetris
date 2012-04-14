@@ -70,7 +70,7 @@ public class PeliSettings_Classic {
         miniBoardWidth = 4;
         miniBoardHeight = 4;
     
-        upShift = new int[] {0, 1};
+        upShift = new int[] {0, 0};
         downShift = new int[] {0, -1};
         leftShift = new int[] {1,0};
         rightShift = new int[] {-1,0};

@@ -21,8 +21,6 @@ public class Pelinkulku {
     private int korkeus;
     private int cycle = 0;
     private int scoreCounter = 0;
-    private MuotoFeeder palikkamuodot;
-    private ColorFeeder colorfeeder;
     private PisteLaskuri pistelaskuri;
     private PalikkaMuoto nextBlockShape;
     private Palikka nextBlockType = new Palikka();
@@ -35,8 +33,6 @@ public class Pelinkulku {
         config = ts;
         leveys = config.boardWidth;
         korkeus = config.boardHeight;
-        palikkamuodot = config.blockfeeder;
-        colorfeeder = config.colorfeeder;
         pistelaskuri = new PisteLaskuri(config.modename);
         board = new TetrisAlusta(leveys,korkeus,this);
         miniboard = new TetrisAlusta(config.miniBoardWidth,config.miniBoardHeight,this);
@@ -51,6 +47,8 @@ public class Pelinkulku {
         config.waitFor = config.waitFor_init;
         config.level = 1;
         ilmoittaja.nollaa();
+        this.shuffleBlock();
+        this.shuffleShape();
     }
     public Ilmoittaja getIlmoittaja() {
         return ilmoittaja;
@@ -132,7 +130,7 @@ public class Pelinkulku {
      * Arpoo millainen seuraava palikkamuoto tulee olemaan
      */
     private void shuffleShape() {
-        nextBlockShape = palikkamuodot.getNextShape();
+        nextBlockShape = config.blockfeeder.getNextShape();
     }
     /**
      * Vaihtaa tulevan palikan tyyppiä
@@ -140,7 +138,7 @@ public class Pelinkulku {
     private void shuffleBlock() {
         nextBlockType.setFilled(true);
         nextBlockType.setStopped(false);
-        nextBlockType.setColor(colorfeeder.nextColor(nextBlockType.getColor()));
+        nextBlockType.setColor(config.colorfeeder.nextColor(nextBlockType.getColor()));
     }
     public void left() {
         boolean foo = board.shiftBlocks(config.leftShift);
@@ -184,6 +182,10 @@ public class Pelinkulku {
     }
     public int getLevel() {
         return config.level;
+    }
+
+    public void setColorfeeder(ColorFeeder colorfeeder) {
+        config.colorfeeder = colorfeeder;
     }
     
 }

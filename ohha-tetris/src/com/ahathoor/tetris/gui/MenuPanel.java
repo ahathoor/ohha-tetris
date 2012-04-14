@@ -86,7 +86,9 @@ public class MenuPanel extends PeliPanel {
        if (e.getKeyCode()==113) 
             kutsuvaIkkuna.usePanel(new ClassicPanel(kutsuvaIkkuna));
        if (e.getKeyCode()==114) 
-            kutsuvaIkkuna.usePanel(new ClassicPanel(kutsuvaIkkuna,new PeliSettings_DoubleMix()));    
+            kutsuvaIkkuna.usePanel(new ClassicPanel(kutsuvaIkkuna,new PeliSettings_DoubleMix()));   
+       if (e.getKeyCode()==115) 
+            kutsuvaIkkuna.usePanel(new DoubleClassic(kutsuvaIkkuna));  
     }
     
 
