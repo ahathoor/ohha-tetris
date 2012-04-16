@@ -4,13 +4,13 @@
  */
 package com.ahathoor.tetris.gui;
 
-import com.ahathoor.tetris.gui.painters.InvertedBoardPainter;
-import com.ahathoor.tetris.gui.painters.BoardPainter;
-import com.ahathoor.tetris.ColorStuff.JustYellow;
 import com.ahathoor.tetris.ColorStuff.JustRed;
+import com.ahathoor.tetris.ColorStuff.JustYellow;
 import com.ahathoor.tetris.Ilmoittaja;
-import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.PeliSettings_Classic;
+import com.ahathoor.tetris.Pelinkulku;
+import com.ahathoor.tetris.gui.painters.BoardPainter;
+import com.ahathoor.tetris.gui.painters.InvertedBoardPainter;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -61,7 +61,7 @@ public class DoubleClassic extends PeliPanel {
     public void paint(Graphics g) {
         super.paint(g);
         if (peli.getConfig().gamelost || peli2.getConfig().gamelost) {
-            LosePanel losepanel = new LosePanel(kutsuvaIkkuna, "DoblClasi", peli.getScore()+peli2.getScore());
+            LosePanel losepanel = new LosePanel(kutsuvaIkkuna, "DoubleClassic", peli.getScore()+peli2.getScore());
             kutsuvaIkkuna.usePanel(losepanel);
             kutsuvaIkkuna.score("DoubleClassic", peli.getScore()+peli2.getScore());
         }

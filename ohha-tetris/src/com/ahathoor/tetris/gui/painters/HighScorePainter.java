@@ -42,7 +42,7 @@ public class HighScorePainter {
             char[] score = ("" + sc.getScore()).toCharArray();
             g.setFont(new Font("Arial",Font.BOLD,fontSize));
             g.drawChars(name, 0, name.length, offX, offY+i);
-            g.drawChars(score, 0, score.length, offX+width-(score.length*fontSize), offY+i);
+            g.drawChars(score, 0, score.length, offX+width-26, offY+i);
             i += height/10;
         }
         char[] moodi = ("\"" + game + "\"").toCharArray();

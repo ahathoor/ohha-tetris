@@ -69,7 +69,7 @@ public class MainWindow extends JFrame {
         return highScores;
     }
     public String askName() {
-        return (String)JOptionPane.showInputDialog(this, 
-                        "HAI SCORUUUUUUUUUUUU!!!!!!!","Put Name");
+        return JOptionPane.showInputDialog(this, 
+                        "HAI SCORUUUUUUUUUUUU!!!!!!!");
     }
 }
