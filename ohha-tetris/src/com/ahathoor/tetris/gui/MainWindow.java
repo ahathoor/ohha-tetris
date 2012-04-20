@@ -7,15 +7,12 @@ package com.ahathoor.tetris.gui;
 import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.highscore.HighScores;
 import com.ahathoor.tetris.highscore.Score;
-import java.awt.Dimension;
-import java.awt.HeadlessException;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.Timer;
+import javax.swing.*;
 
 /**
  *
@@ -35,10 +32,13 @@ public class MainWindow extends JFrame {
         setSize(380,500);
         timer = new Timer(20, tick);
         this.usePanel(new MenuPanel(this));
+        System.out.println(askName());
     }
     public void score(String gamemode, int score) {
-        if (highScores.canTakeScore(gamemode, score))
-            highScores.putScore(gamemode, askName(), score);
+        if (highScores.canTakeScore(gamemode, score)) {
+            String name = askName();
+            highScores.putScore(gamemode, name, score);
+        }
         highScores.writeToFile(scorePath);
     }   
     final public void usePanel(PeliPanel p) {
@@ -68,8 +68,23 @@ public class MainWindow extends JFrame {
     public HighScores getHighScores() {
         return highScores;
     }
+    
+    private class Kuuntelija implements ActionListener {
+        
+        String nimi; 
+        JTextField teksti;
+
+        public Kuuntelija(JTextField teksti) {
+            this.teksti = teksti;
+        }
+        
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                nimi = teksti.getText();
+            }
+    }
+    
     public String askName() {
-        return JOptionPane.showInputDialog(this, 
-                        "HAI SCORUUUUUUUUUUUU!!!!!!!");
+        return JOptionPane.showInputDialog(this, "HIGH SCORUUUUUUUU!!!!");
     }
 }

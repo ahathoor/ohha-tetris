@@ -43,16 +43,16 @@ public class ClassicPanel extends PeliPanel {
     @Override
     public void tick() {
         super.tick();
-        peli.step();
-    }
-        @Override
-    public void paint(Graphics g) {
-        super.paint(g);
         if (peli.getConfig().gamelost) {
             LosePanel losepanel = new LosePanel(kutsuvaIkkuna,peli.getConfig().modename,peli.getScore());
             kutsuvaIkkuna.usePanel(losepanel);
             kutsuvaIkkuna.score(peli.getConfig().modename, peli.getScore());
         }
+        peli.step();
+    }
+        @Override
+    public void paint(Graphics g) {
+        super.paint(g);
         g.setColor(Color.pink);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         lauta.paint(g);
@@ -85,7 +85,7 @@ public class ClassicPanel extends PeliPanel {
        if (ke.getKeyCode()==38) peli.flip();
        if (ke.getKeyCode()==40) peli.down();
        if (ke.getKeyChar()=="s".charAt(0)) peli.up();
-       if (ke.getKeyChar()=="d".charAt(0)) peli.stop();
+       //if (ke.getKeyChar()=="d".charAt(0)) peli.stop();
        if (ke.getKeyCode()==113) {
            peli.startGame();
        }

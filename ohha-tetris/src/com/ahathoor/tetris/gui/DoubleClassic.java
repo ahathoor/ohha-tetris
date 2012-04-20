@@ -54,17 +54,17 @@ public class DoubleClassic extends PeliPanel {
     @Override
     public void tick() {
         super.tick();
+        if (peli.getConfig().gamelost || peli2.getConfig().gamelost) {
+            LosePanel losepanel = new LosePanel(kutsuvaIkkuna, "DoubleClassic", peli.getScore()+peli2.getScore());
+            kutsuvaIkkuna.usePanel(losepanel);
+            kutsuvaIkkuna.score("DoubleClassic", peli.getScore()+peli2.getScore());
+        }
         peli.step();
         peli2.step();
     }
         @Override
     public void paint(Graphics g) {
         super.paint(g);
-        if (peli.getConfig().gamelost || peli2.getConfig().gamelost) {
-            LosePanel losepanel = new LosePanel(kutsuvaIkkuna, "DoubleClassic", peli.getScore()+peli2.getScore());
-            kutsuvaIkkuna.usePanel(losepanel);
-            kutsuvaIkkuna.score("DoubleClassic", peli.getScore()+peli2.getScore());
-        }
         g.setColor(Color.black);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         lauta.paint(g);
