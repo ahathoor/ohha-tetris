@@ -10,6 +10,7 @@ import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.PisteLaskuri;
 import com.ahathoor.tetris.PeliSettings_Classic;
 import com.ahathoor.tetris.PeliSettings_DoubleMix;
+import com.ahathoor.tetris.gui.painters.LightFlashPainter;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -61,17 +62,23 @@ public class ClassicPanel extends PeliPanel {
         g.setColor(Color.green);
         g.setFont(new Font("Console",Font.BOLD,20));
         g.drawChars(data, 0,data.length, 280, 160);
-        //ilmoitukset pöytään
-            Iterator i = ilmoittaja.getIlmoitukset().iterator();
+        
+        Iterator i = peli.getIlmoittaja().getIlmoitukset().iterator();
             while (i.hasNext()) {
                 Map.Entry me = (Map.Entry)i.next(); 
                 int kesto = Integer.parseInt(me.getValue().toString());
-                String[] foo = me.getKey().toString().split("%");
-                int alkukesto = Integer.parseInt(foo[1].toString());
-                char[] viesti = foo[0].toString().toCharArray();
-                g.drawChars(viesti, 0,viesti.length, 20, 160);
+                String[] ilmoitusjakesto = me.getKey().toString().split("%");
+                int alkukesto = Integer.parseInt(ilmoitusjakesto[1].toString());
+                String viesti = ilmoitusjakesto[0].split("#")[0];
+                float suhde = (float)kesto/(float)alkukesto;
+                int rivi = Integer.parseInt(ilmoitusjakesto[0].split("#")[1]);
+                int alpha = (int) (200 * suhde);
+                LightFlashPainter.paint(g, lauta.getOffset_x(), 
+                                lauta.getOffset_y()+lauta.getHeight()-(lauta.getBlockHeight()*(rivi+1)), 
+                                lauta.getWidth(), 
+                                lauta.getBlockHeight(), 
+                                alpha);
             }
-        
     }
     
     @Override
@@ -85,7 +92,7 @@ public class ClassicPanel extends PeliPanel {
        if (ke.getKeyCode()==38) peli.flip();
        if (ke.getKeyCode()==40) peli.down();
        if (ke.getKeyChar()=="s".charAt(0)) peli.up();
-       //if (ke.getKeyChar()=="d".charAt(0)) peli.stop();
+       if (ke.getKeyChar()=="d".charAt(0)) peli.stop();
        if (ke.getKeyCode()==113) {
            peli.startGame();
        }

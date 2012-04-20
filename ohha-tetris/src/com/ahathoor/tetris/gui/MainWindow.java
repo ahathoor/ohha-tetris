@@ -32,7 +32,6 @@ public class MainWindow extends JFrame {
         setSize(380,500);
         timer = new Timer(20, tick);
         this.usePanel(new MenuPanel(this));
-        System.out.println(askName());
     }
     public void score(String gamemode, int score) {
         if (highScores.canTakeScore(gamemode, score)) {

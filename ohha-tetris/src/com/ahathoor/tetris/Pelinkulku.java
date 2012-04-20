@@ -3,10 +3,9 @@
  */
 package com.ahathoor.tetris;
 
-import com.ahathoor.tetris.ColorStuff.ColorFeeder;
 import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;
-import com.ahathoor.tetris.PalikkaMuodot.MuotoFeeder;
+import com.ahathoor.tetris.ColorStuff.ColorFeeder;
 import com.ahathoor.tetris.PalikkaMuodot.PalikkaMuoto;
 
 /**
@@ -14,7 +13,7 @@ import com.ahathoor.tetris.PalikkaMuodot.PalikkaMuoto;
  * @author ahathoor
  */
 public class Pelinkulku {
-    
+
     private TetrisAlusta board;
     private TetrisAlusta miniboard;
     private int leveys;
@@ -26,6 +25,7 @@ public class Pelinkulku {
     private Palikka nextBlockType = new Palikka();
     private Ilmoittaja ilmoittaja = new Ilmoittaja();
     private PeliSettings_Classic config;
+
     /**
      * Luo uuden pelinkulun
      */
@@ -34,11 +34,12 @@ public class Pelinkulku {
         leveys = config.boardWidth;
         korkeus = config.boardHeight;
         pistelaskuri = new PisteLaskuri(config.modename);
-        board = new TetrisAlusta(leveys,korkeus,this);
-        miniboard = new TetrisAlusta(config.miniBoardWidth,config.miniBoardHeight,this);
+        board = new TetrisAlusta(leveys, korkeus, this);
+        miniboard = new TetrisAlusta(config.miniBoardWidth, config.miniBoardHeight, this);
         this.shuffleBlock();
         this.shuffleShape();
     }
+
     public void startGame() {
         config.gamelost = false;
         config.running = true;
@@ -50,88 +51,98 @@ public class Pelinkulku {
         this.shuffleBlock();
         this.shuffleShape();
     }
+
     public Ilmoittaja getIlmoittaja() {
         return ilmoittaja;
     }
+
     public void pause() {
         config.running = !config.running;
     }
+
     /**
      * Peliä 1 aikayksikkö eteenpäin
      */
-    public void step(){
-        if (!config.running) return;
+    public void step() {
+        if (!config.running) {
+            return;
+        }
         ilmoittaja.tick();
-        
+
         if (pistelaskuri.getScore() - scoreCounter > config.scoreToLevel) {
             scoreCounter += config.scoreToLevel;
             config.scoreToLevel *= config.multiplierGrowX;
             pistelaskuri.multiplier *= config.multiplierGrowX;
             config.level++;
-            if (config.waitFor > 0) config.waitFor -= config.gameHardensBy;
+            if (config.waitFor > 0) {
+                config.waitFor -= config.gameHardensBy;
+            }
         }
-        
-        
-        for (int i=0;i<korkeus;i++) {
-            if (!board.onkoLiikkuvia() && board.riviOnTaysi(i)) { 
-                
+
+
+        for (int i = 0; i < korkeus; i++) {
+            if (!board.onkoLiikkuvia() && board.riviOnTaysi(i)) {
+                ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + i, 20);
                 if (config.clearingMakesMovables) {
                     board.teeRivitLiikkuviksi(i);
-                    for (int j=0;j<korkeus;j++) {
-                        if (board.riviOnTaysi(j))
+                    for (int j = 0; j < korkeus; j++) {
+                        if (board.riviOnTaysi(j)) {
                             board.tyhjennaRivi(j);
+                        }
                     }
-                }
-                else {
+                } else {
                     board.poistaRivi(i);
                     i--;
                 }
                 pistelaskuri.add(config.scoreFromRow);
-                ilmoittaja.ilmoita("OHYEAUGOTRIVI", 20);
             }
         }
-       if (board.onkoLiikkuvia()) {
-           if (cycle < config.waitFor) cycle++;
-           else cycle = 0;
-           if(cycle == 0 && !board.shiftBlocks(config.gravShift)) {
-               if (config.fallPast) {
-                   board.pysaytaRivi(config.lowestRow);
-                   board.recursingUnMover();
-                   cycle = -1;
-               } else {
-                   board.pysaytaKaikki();
-               }
-           }
-       } else {
-           if (!board.lisaaMuoto(nextBlockShape, 
-                                config.nextBlockX, config.nextBlockY, 
-                                nextBlockType)){
-               //jos uusi muoto ei mahdu, seuraa häviö
-               config.running = false;
-               config.gamelost = true;
-               return;
-           }
-           this.shuffleBlock();
-           this.shuffleShape();
-           if (config.ghostshapes) {
+        if (board.onkoLiikkuvia()) {
+            if (cycle < config.waitFor) {
+                cycle++;
+            } else {
+                cycle = 0;
+            }
+            if (cycle == 0 && !board.shiftBlocks(config.gravShift)) {
+                if (config.fallPast) {
+                    board.pysaytaRivi(config.lowestRow);
+                    board.recursingUnMover();
+                    cycle = -1;
+                } else {
+                    board.pysaytaKaikki();
+                }
+            }
+        } else {
+            if (!board.lisaaMuoto(nextBlockShape,
+                    config.nextBlockX, config.nextBlockY,
+                    nextBlockType)) {
+                //jos uusi muoto ei mahdu, seuraa häviö
+                config.running = false;
+                config.gamelost = true;
+                return;
+            }
+            this.shuffleBlock();
+            this.shuffleShape();
+            if (config.ghostshapes) {
                 board.clearGhosts();
-                board.lisaaHaamuMuoto(nextBlockShape, 
-                                config.nextBlockX, config.nextBlockY);
-           }
-           miniboard.poistaKaikki();
-           miniboard.lisaaMuoto(nextBlockShape, 
-                                miniboard.getLeveys()-1, miniboard.getKorkeus()-1, 
-                                nextBlockType);
-           pistelaskuri.add(config.scoreFromBlock);
-       }
+                board.lisaaHaamuMuoto(nextBlockShape,
+                        config.nextBlockX, config.nextBlockY);
+            }
+            miniboard.poistaKaikki();
+            miniboard.lisaaMuoto(nextBlockShape,
+                    miniboard.getLeveys() - 1, miniboard.getKorkeus() - 1,
+                    nextBlockType);
+            pistelaskuri.add(config.scoreFromBlock);
+        }
     }
-    
+
     /**
      * Arpoo millainen seuraava palikkamuoto tulee olemaan
      */
     private void shuffleShape() {
         nextBlockShape = config.blockfeeder.getNextShape();
     }
+
     /**
      * Vaihtaa tulevan palikan tyyppiä
      */
@@ -140,27 +151,42 @@ public class Pelinkulku {
         nextBlockType.setStopped(false);
         nextBlockType.setColor(config.colorfeeder.nextColor(nextBlockType.getColor()));
     }
+
     public void left() {
         boolean foo = board.shiftBlocks(config.leftShift);
-        if(foo && config.gliding) glide();
+        if (foo && config.gliding) {
+            glide();
+        }
     }
+
     public void right() {
         boolean foo = board.shiftBlocks(config.rightShift);
-        if(foo && config.gliding) glide();
+        if (foo && config.gliding) {
+            glide();
+        }
     }
+
     public void up() {
         board.shiftBlocks(config.upShift);
     }
+
     public void down() {
-        if (!board.shiftBlocks(config.downShift)) cycle = -1;
+        if (!board.shiftBlocks(config.downShift)) {
+            cycle = -1;
+        }
     }
+
     public void flip() {
         board.flipBlock();
     }
+
     public void glide() {
         cycle -= config.glideAmount;
-        if (cycle < 0) cycle = 0;
+        if (cycle < 0) {
+            cycle = 0;
+        }
     }
+
     public TetrisAlusta getBoard() {
         return board;
     }
@@ -178,8 +204,11 @@ public class Pelinkulku {
     }
 
     public void stop() {
-        if (config.canStopMidFlight) board.pysaytaKaikki();
+        if (config.canStopMidFlight) {
+            board.pysaytaKaikki();
+        }
     }
+
     public int getLevel() {
         return config.level;
     }
@@ -187,5 +216,4 @@ public class Pelinkulku {
     public void setColorfeeder(ColorFeeder colorfeeder) {
         config.colorfeeder = colorfeeder;
     }
-    
 }

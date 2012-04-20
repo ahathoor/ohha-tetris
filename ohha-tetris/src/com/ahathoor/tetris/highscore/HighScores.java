@@ -1,4 +1,3 @@
-// 1. harjoitukset, tehtävä 1.1, Mikko Tamminen
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

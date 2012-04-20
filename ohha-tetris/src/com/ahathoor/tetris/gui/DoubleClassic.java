@@ -10,7 +10,6 @@ import com.ahathoor.tetris.Ilmoittaja;
 import com.ahathoor.tetris.PeliSettings_Classic;
 import com.ahathoor.tetris.Pelinkulku;
 import com.ahathoor.tetris.gui.painters.BoardPainter;
-import com.ahathoor.tetris.gui.painters.InvertedBoardPainter;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -27,7 +26,7 @@ public class DoubleClassic extends PeliPanel {
     private Pelinkulku peli;
     private Pelinkulku peli2;
     private BoardPainter lauta;
-    private InvertedBoardPainter lauta2;
+    private BoardPainter lauta2;
     private BoardPainter seuraavapala;
     private BoardPainter seuraavapala2;
     private Ilmoittaja ilmoittaja;
@@ -40,7 +39,8 @@ public class DoubleClassic extends PeliPanel {
         lauta = new BoardPainter(200,400,50,30,peli.getBoard());
         lauta.forceAlpha = true;
         lauta.forcedAlpha = 200;
-        lauta2 = new InvertedBoardPainter(200,400,50,30,peli2.getBoard());
+        lauta2 = new BoardPainter(200,400,50,30,peli2.getBoard());
+        lauta2.setInverted(true);
         lauta2.forceAlpha = true;
         lauta2.forcedAlpha = 200;
         seuraavapala = new BoardPainter(50,50,290,80,peli.getMiniboard());
