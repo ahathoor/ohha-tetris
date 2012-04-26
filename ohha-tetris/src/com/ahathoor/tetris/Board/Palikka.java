@@ -1,13 +1,10 @@
-/*
- * Palikka määrittelee tetriskentän yhdessä lokerossa asustavan olion,
- *  onko se tyhjä, mikä sen väri on, ja onko se vielä liikkeessä.
- */
 package com.ahathoor.tetris.Board;
 
 import com.ahathoor.tetris.ColorStuff.Color;
 
 /**
- *
+ *  Palikka määrittelee tetriskentän yhdessä lokerossa asustavan olion,
+ *  onko se tyhjä, mikä sen väri on, ja onko se vielä liikkeessä.
  * @author mkctammi
  */
 public class Palikka {

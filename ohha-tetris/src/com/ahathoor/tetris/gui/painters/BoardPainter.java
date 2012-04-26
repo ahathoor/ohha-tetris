@@ -31,13 +31,13 @@ public class BoardPainter{
     private boolean inverted = false;
     
     
-    public BoardPainter(int w, int h, int offX, int offY, TetrisAlusta t){
+    public BoardPainter(int w, int h, int offX, int offY, TetrisAlusta t, Pelinkulku p){
         width = w;
         height = h;
         alusta = t;
         offset_x = offX;
         offset_y = offY;
-        peli = t.getKuuluuPeliin();
+        peli = p;
         config = peli.getConfig();
     }
 

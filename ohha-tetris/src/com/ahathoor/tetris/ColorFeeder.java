@@ -1,6 +1,5 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Interface for a ColorFeeder class, that gives consequent colors
  */
 package com.ahathoor.tetris;
 

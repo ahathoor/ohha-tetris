@@ -34,8 +34,8 @@ public class Pelinkulku {
         leveys = config.boardWidth;
         korkeus = config.boardHeight;
         pistelaskuri = new PisteLaskuri(config.modename);
-        board = new TetrisAlusta(leveys, korkeus, this);
-        miniboard = new TetrisAlusta(config.miniBoardWidth, config.miniBoardHeight, this);
+        board = new TetrisAlusta(leveys, korkeus);
+        miniboard = new TetrisAlusta(config.miniBoardWidth, config.miniBoardHeight);
         this.shuffleBlock();
         this.shuffleShape();
     }
@@ -87,11 +87,13 @@ public class Pelinkulku {
                     board.teeRivitLiikkuviksi(i);
                     for (int j = 0; j < korkeus; j++) {
                         if (board.riviOnTaysi(j)) {
+                            ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + j, 20);
                             board.tyhjennaRivi(j);
                         }
                     }
                 } else {
                     board.poistaRivi(i);
+                    ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + i, 20);
                     i--;
                 }
                 pistelaskuri.add(config.scoreFromRow);

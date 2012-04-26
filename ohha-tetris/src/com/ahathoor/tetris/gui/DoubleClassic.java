@@ -36,15 +36,15 @@ public class DoubleClassic extends PeliPanel {
         peli = new Pelinkulku(new PeliSettings_Classic());
         peli2 = new Pelinkulku(new PeliSettings_Classic());
         ilmoittaja = peli.getIlmoittaja();
-        lauta = new BoardPainter(200,400,50,30,peli.getBoard());
+        lauta = new BoardPainter(200,400,50,30,peli.getBoard(),peli);
         lauta.forceAlpha = true;
         lauta.forcedAlpha = 200;
-        lauta2 = new BoardPainter(200,400,50,30,peli2.getBoard());
+        lauta2 = new BoardPainter(200,400,50,30,peli2.getBoard(),peli2);
         lauta2.setInverted(true);
         lauta2.forceAlpha = true;
         lauta2.forcedAlpha = 200;
-        seuraavapala = new BoardPainter(50,50,290,80,peli.getMiniboard());
-        seuraavapala2 = new BoardPainter(50,50,290,300,peli2.getMiniboard());
+        seuraavapala = new BoardPainter(50,50,290,80,peli.getMiniboard(),peli);
+        seuraavapala2 = new BoardPainter(50,50,290,300,peli2.getMiniboard(),peli2);
         peli.setColorfeeder(new JustYellow());
         peli2.setColorfeeder(new JustRed());
         peli.startGame();
@@ -75,16 +75,6 @@ public class DoubleClassic extends PeliPanel {
         g.setColor(Color.green);
         g.setFont(new Font("Console",Font.BOLD,20));
         g.drawChars(score, 0,score.length, 280, 160);
-        //ilmoitukset pöytään
-            Iterator i = ilmoittaja.getIlmoitukset().iterator();
-            while (i.hasNext()) {
-                Map.Entry me = (Map.Entry)i.next(); 
-                int kesto = Integer.parseInt(me.getValue().toString());
-                String[] foo = me.getKey().toString().split("%");
-                int alkukesto = Integer.parseInt(foo[1].toString());
-                char[] viesti = foo[0].toString().toCharArray();
-                g.drawChars(viesti, 0,viesti.length, 20, 160);
-            }
         
     }
     

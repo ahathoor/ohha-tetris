@@ -1,5 +1,5 @@
 /*
- * Global settings for the Tetturissy game
+ * Global settings for the Classic Tetturissy game
  */
 package com.ahathoor.tetris;
 

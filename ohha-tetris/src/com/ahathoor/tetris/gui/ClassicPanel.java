@@ -36,8 +36,8 @@ public class ClassicPanel extends PeliPanel {
         super(kutsuva);    
         peli = new Pelinkulku(p);
         ilmoittaja = peli.getIlmoittaja();
-        lauta = new BoardPainter(200,400,50,30,peli.getBoard());
-        seuraavapala = new BoardPainter(50,50,290,80,peli.getMiniboard());
+        lauta = new BoardPainter(200,400,50,30,peli.getBoard(),peli);
+        seuraavapala = new BoardPainter(50,50,290,80,peli.getMiniboard(),peli);
         peli.startGame();
         setVisible(true);
     }
