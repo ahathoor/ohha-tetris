@@ -1,7 +1,7 @@
 /*
  * Global settings for the Tetturissy game
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.logic;
 
 import com.ahathoor.tetris.PalikkaMuodot.*;
 

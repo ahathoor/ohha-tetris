@@ -1,7 +1,7 @@
 package com.ahathoor.tetris.Board;
 
 import com.ahathoor.tetris.PalikkaMuodot.PalikkaMuoto;
-import com.ahathoor.tetris.Pelinkulku;
+import com.ahathoor.tetris.logic.Pelinkulku;
 import java.util.ArrayList;
 
 /**

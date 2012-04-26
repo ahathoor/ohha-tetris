@@ -1,7 +1,7 @@
 /*
  * Global settings for the Classic Tetturissy game
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.logic;
 
 import com.ahathoor.tetris.ColorStuff.CyclingColor;
 import com.ahathoor.tetris.ColorStuff.ColorFeeder;

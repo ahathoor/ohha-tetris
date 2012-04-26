@@ -1,7 +1,7 @@
 /*
  * PisteLaskuri
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.logic;
 
 /**
  *

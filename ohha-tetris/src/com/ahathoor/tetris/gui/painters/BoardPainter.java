@@ -5,8 +5,8 @@ package com.ahathoor.tetris.gui.painters;
 
 import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;
-import com.ahathoor.tetris.Pelinkulku;
-import com.ahathoor.tetris.PeliSettings_Classic;
+import com.ahathoor.tetris.logic.Pelinkulku;
+import com.ahathoor.tetris.logic.PeliSettings_Classic;
 import com.ahathoor.tetris.ColorStuff.Color;
 import java.awt.Graphics;
 import java.util.Iterator;

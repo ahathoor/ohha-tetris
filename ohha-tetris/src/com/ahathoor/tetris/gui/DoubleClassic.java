@@ -6,9 +6,9 @@ package com.ahathoor.tetris.gui;
 
 import com.ahathoor.tetris.ColorStuff.JustRed;
 import com.ahathoor.tetris.ColorStuff.JustYellow;
-import com.ahathoor.tetris.Ilmoittaja;
-import com.ahathoor.tetris.PeliSettings_Classic;
-import com.ahathoor.tetris.Pelinkulku;
+import com.ahathoor.tetris.logic.Ilmoittaja;
+import com.ahathoor.tetris.logic.PeliSettings_Classic;
+import com.ahathoor.tetris.logic.Pelinkulku;
 import com.ahathoor.tetris.gui.painters.BoardPainter;
 import java.awt.Color;
 import java.awt.Font;

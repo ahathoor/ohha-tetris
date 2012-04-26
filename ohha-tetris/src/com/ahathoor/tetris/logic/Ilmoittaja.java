@@ -1,7 +1,7 @@
 /**
  * Ilmoittaja stores name-value pairs in a hasmap and controls their duration
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.logic;
 
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;

@@ -1,11 +1,7 @@
-package com.ahathoor.tetris.gui;
+package com.ahathoor.tetris;
 
-import com.ahathoor.tetris.Pelinkulku;
+import com.ahathoor.tetris.gui.MainWindow;
 import java.awt.HeadlessException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Properties;
 
 /**
  * Hello world!

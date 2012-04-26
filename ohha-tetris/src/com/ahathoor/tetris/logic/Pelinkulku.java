@@ -1,7 +1,7 @@
 /*
  * hallinnoi lautaa tetrismäiseen tyyliin
  */
-package com.ahathoor.tetris;
+package com.ahathoor.tetris.logic;
 
 import com.ahathoor.tetris.Board.Palikka;
 import com.ahathoor.tetris.Board.TetrisAlusta;

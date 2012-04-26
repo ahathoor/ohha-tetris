@@ -4,7 +4,7 @@
  */
 package com.ahathoor.tetris.gui;
 
-import com.ahathoor.tetris.PeliSettings_DoubleMix;
+import com.ahathoor.tetris.logic.PeliSettings_DoubleMix;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;

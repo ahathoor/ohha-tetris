@@ -4,7 +4,7 @@
  */
 package com.ahathoor.tetris.gui;
 
-import com.ahathoor.tetris.Pelinkulku;
+import com.ahathoor.tetris.logic.Pelinkulku;
 import com.ahathoor.tetris.highscore.HighScores;
 import com.ahathoor.tetris.highscore.Score;
 import java.awt.*;
@@ -27,11 +27,13 @@ public class MainWindow extends JFrame {
     private HighScores highScores = new HighScores(scorePath);
     
     public MainWindow() throws HeadlessException {
-        setTitle("TETTURISSY!!");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setTitle("TETTURISSY!!!!!");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setVisible(true);
         setSize(380,500);
         timer = new Timer(20, tick);
         this.usePanel(new MenuPanel(this));
+        this.requestFocus();
     }
     public void score(String gamemode, int score) {
         if (highScores.canTakeScore(gamemode, score)) {
@@ -61,7 +63,8 @@ public class MainWindow extends JFrame {
         setVisible(true);
         timer.addActionListener(tick);
         timer.start();
-        this.requestFocusInWindow(true);
+        this.requestFocus();
+        mainpanel.revalidate();
     }
 
     public HighScores getHighScores() {

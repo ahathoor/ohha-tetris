@@ -5,11 +5,11 @@
 package com.ahathoor.tetris.gui;
 
 import com.ahathoor.tetris.gui.painters.BoardPainter;
-import com.ahathoor.tetris.Ilmoittaja;
-import com.ahathoor.tetris.Pelinkulku;
-import com.ahathoor.tetris.PisteLaskuri;
-import com.ahathoor.tetris.PeliSettings_Classic;
-import com.ahathoor.tetris.PeliSettings_DoubleMix;
+import com.ahathoor.tetris.logic.Ilmoittaja;
+import com.ahathoor.tetris.logic.Pelinkulku;
+import com.ahathoor.tetris.logic.PisteLaskuri;
+import com.ahathoor.tetris.logic.PeliSettings_Classic;
+import com.ahathoor.tetris.logic.PeliSettings_DoubleMix;
 import com.ahathoor.tetris.gui.painters.LightFlashPainter;
 import java.awt.Color;
 import java.awt.Font;
