@@ -24,7 +24,7 @@ public class MainWindow extends JFrame implements MouseListener{
     private HighScores highScores = new HighScores(scorePath);
     
     public MainWindow() throws HeadlessException {
-        this.setTitle("TETTURISSY!!!!!");
+        this.setTitle("TETTURISSY!!!!");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
         setSize(380,500);
@@ -38,6 +38,7 @@ public class MainWindow extends JFrame implements MouseListener{
             highScores.putScore(gamemode, name, score);
         }
         highScores.writeToFile(scorePath);
+        this.requestFocus();
     }   
     final public void usePanel(PeliPanel p) {
         for (KeyListener k : this.getKeyListeners()){
@@ -62,6 +63,7 @@ public class MainWindow extends JFrame implements MouseListener{
         timer.start();
         this.requestFocus();
         mainpanel.revalidate();
+        mainpanel.addMouseListener(this);
     }
 
     public HighScores getHighScores() {
