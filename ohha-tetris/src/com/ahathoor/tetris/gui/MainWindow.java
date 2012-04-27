@@ -4,12 +4,13 @@
  */
 package com.ahathoor.tetris.gui;
 
-import com.ahathoor.tetris.logic.Pelinkulku;
 import com.ahathoor.tetris.highscore.HighScores;
-import com.ahathoor.tetris.highscore.Score;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.HeadlessException;
 import java.awt.event.*;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
