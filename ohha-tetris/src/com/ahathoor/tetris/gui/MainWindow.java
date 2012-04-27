@@ -8,17 +8,14 @@ import com.ahathoor.tetris.logic.Pelinkulku;
 import com.ahathoor.tetris.highscore.HighScores;
 import com.ahathoor.tetris.highscore.Score;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import javax.swing.*;
 
 /**
  *
  * @author ahathoor
  */
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements MouseListener{
     
     private PeliPanel mainpanel;
     private ActionListener tick;
@@ -70,23 +67,27 @@ public class MainWindow extends JFrame {
     public HighScores getHighScores() {
         return highScores;
     }
-    
-    private class Kuuntelija implements ActionListener {
-        
-        String nimi; 
-        JTextField teksti;
 
-        public Kuuntelija(JTextField teksti) {
-            this.teksti = teksti;
-        }
-        
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                nimi = teksti.getText();
-            }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        this.requestFocus();
     }
-    
-    public String askName() {
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }public String askName() {
         return JOptionPane.showInputDialog(this, "HIGH SCORUUUUUUUU!!!!");
     }
 }
