@@ -7,16 +7,14 @@ package com.ahathoor.tetris.gui;
 import com.ahathoor.tetris.gui.painters.BoardPainter;
 import com.ahathoor.tetris.logic.Ilmoittaja;
 import com.ahathoor.tetris.logic.Pelinkulku;
-import com.ahathoor.tetris.logic.PisteLaskuri;
 import com.ahathoor.tetris.logic.PeliSettings_Classic;
-import com.ahathoor.tetris.logic.PeliSettings_DoubleMix;
 import com.ahathoor.tetris.gui.painters.LightFlashPainter;
+import com.ahathoor.tetris.logic.Ilmoitus;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  *
@@ -65,13 +63,12 @@ public class ClassicPanel extends PeliPanel {
         
         Iterator i = peli.getIlmoittaja().getIlmoitukset().iterator();
             while (i.hasNext()) {
-                Map.Entry me = (Map.Entry)i.next(); 
-                int kesto = Integer.parseInt(me.getValue().toString());
-                String[] ilmoitusjakesto = me.getKey().toString().split("%");
-                int alkukesto = Integer.parseInt(ilmoitusjakesto[1].toString());
-                String viesti = ilmoitusjakesto[0].split("#")[0];
+                Ilmoitus il = (Ilmoitus)i.next(); 
+                int kesto = il.getKesto();
+                int alkukesto = il.getAlkukesto();
+                String viesti = il.getNimi();
                 float suhde = (float)kesto/(float)alkukesto;
-                int rivi = Integer.parseInt(ilmoitusjakesto[0].split("#")[1]);
+                int rivi = Integer.parseInt(viesti.split("#")[1]);
                 int alpha = (int) (200 * suhde);
                 LightFlashPainter.paint(g, lauta.getOffset_x(), 
                                 lauta.getOffset_y()+lauta.getHeight()-(lauta.getBlockHeight()*(rivi+1)), 

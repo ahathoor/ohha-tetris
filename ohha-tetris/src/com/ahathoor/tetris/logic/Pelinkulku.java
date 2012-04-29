@@ -79,26 +79,30 @@ public class Pelinkulku {
             }
         }
 
-
-        for (int i = 0; i < korkeus; i++) {
-            if (!board.onkoLiikkuvia() && board.riviOnTaysi(i)) {
-                ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + i, 20);
-                if (config.clearingMakesMovables) {
-                    board.teeRivitLiikkuviksi(i);
-                    for (int j = 0; j < korkeus; j++) {
+        if (!board.onkoLiikkuvia()) {
+            boolean[] taydetRivit = new boolean[korkeus];
+            for (int j = 0; j < korkeus; j++) {
+                taydetRivit[j] = board.riviOnTaysi(j);
+                if (taydetRivit[j]) {
+                    ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + j, 15);
+                    pistelaskuri.add(config.scoreFromRow);
+                }
+            }
+            for (int j = 0; j < korkeus; j++) {
+                if (taydetRivit[j]) {
+                    if (config.clearingMakesMovables) {
+                        board.teeRivitLiikkuviksi(j);
+                        board.tyhjennaRivi(j);
+                    } else {
                         if (board.riviOnTaysi(j)) {
-                            ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + j, 20);
-                            board.tyhjennaRivi(j);
+                            board.poistaRivi(j);
+                            j--;
                         }
                     }
-                } else {
-                    board.poistaRivi(i);
-                    ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + i, 20);
-                    i--;
                 }
-                pistelaskuri.add(config.scoreFromRow);
             }
         }
+        
         if (board.onkoLiikkuvia()) {
             if (cycle < config.waitFor) {
                 cycle++;
