@@ -1,12 +1,10 @@
-/**
- * Ilmoittaja stores name-value pairs in a hasmap and controls their duration
- */
+
 package com.ahathoor.tetris.logic;
 
 import java.util.*;
 
 /**
- *
+ * Ilmoittaja säilyttää ilmoituksia listassa, ja vähentää niiden kestoa ja poistaa ne tarvittaessa
  * @author User
  */
 public class Ilmoittaja {

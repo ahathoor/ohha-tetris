@@ -4,7 +4,9 @@
 package com.ahathoor.tetris.logic;
 
 /**
- *
+ * Pistelaskuri vain laskee pisteitä ja kertoo niitä multiplierin mukaisesti.
+ * Tämänkin tekisi fiksusti uudestaan niin että se vain yksinkertaisesti käyttäisi
+ * jotain score-olioita, joita sitten myös HighScores voisi käyttää suoraan
  * @author ahathoor
  */
 public class PisteLaskuri {

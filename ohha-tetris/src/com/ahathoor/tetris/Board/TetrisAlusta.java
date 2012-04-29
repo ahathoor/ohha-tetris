@@ -5,7 +5,7 @@ import com.ahathoor.tetris.logic.Pelinkulku;
 import java.util.ArrayList;
 
 /**
- * Hallinnoi ArrayListia jossa säilytetään tetrispalikoiden sijainnit,
+ * Hallinnoi ArrayListia jossa säilytetään tetrispalikoiden sijainnit.
  *
  * @author mkctammi
  */
@@ -26,7 +26,7 @@ public class TetrisAlusta {
 
     /**
      * Palauttaa laudan korkeuden
-     * @return
+     * @return laudan korkeus
      */
     public int getKorkeus() {
         return korkeus;
@@ -41,7 +41,7 @@ public class TetrisAlusta {
      * @param muoto
      * @param x vasen yläkulma
      * @param y vasen yläkulma
-     * @param tyyppi
+     * @param tyyppi minkätyyppinen palikka palautetaan
      * @return true jos operaatio onnistui
      */
     public boolean lisaaMuoto(ArrayList<int[]> muoto, int x, int y, Palikka tyyppi) {
@@ -71,7 +71,7 @@ public class TetrisAlusta {
      * mikäli ne mahtuvat ja palauttaa true. Elleivät, palauttaa false.
      * @param lisays
      * @param tyyppi
-     * @return
+     * @return true jos operaatio onnistui
      */
     public boolean lisaaPalikat(ArrayList<int[]> lisays, Palikka tyyppi) {
         if (!this.mahtuuko(lisays)) {
@@ -186,11 +186,9 @@ public class TetrisAlusta {
     /**
      * Siirtää palikoita laudalla suhteellisen määrän
      *
-     * törmätessä esteeseen kaikki palikat pysäytetään
-     *
      * @param xshift paljon palikoita siirretään x-akselin suhteen
      * @param yshift paljon palikoita siirretään y-akselin suhteen
-     * @return
+     * @return true jos palikat pystyttiin siirtämään
      */
     public boolean shiftBlocks(int xshift, int yshift) {
         ArrayList<int[]> liikkuvat = this.getLiikkuvat();

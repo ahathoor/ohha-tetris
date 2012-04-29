@@ -6,7 +6,7 @@ package com.ahathoor.tetris.ColorStuff;
 
 
 /**
- *
+ * Syöttää vaihtelevia värejä
  * @author ahathoor
  */
 public class CyclingColor implements ColorFeeder{

@@ -14,8 +14,10 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 /**
- *
- * @author User
+ * Highscore olioon voidaan säilyttää eri pelimoodien pisteitä (tämä toteutus HashMapin
+ * kautta tuskin oli viisas, paljon järkevämpi olisi lista score olennoista, joita jokatapauksessa
+ * luokka käyttää palauttamaan arvoja)
+ * @author ahathoor
  */
 public class HighScores {
     private HashMap<String,HashMap<String,Integer>> scores;

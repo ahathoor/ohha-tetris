@@ -40,7 +40,7 @@ public class TetrisAlustaTest {
     @Test
     public void testGetLeveys() {
         System.out.println("getLeveys");
-        TetrisAlusta instance = new TetrisAlusta();
+        TetrisAlusta instance = new TetrisAlusta(20,20);
         int expResult = 10;
         int result = instance.getLeveys();
         assertEquals(expResult, result);
@@ -52,7 +52,7 @@ public class TetrisAlustaTest {
     @Test
     public void testGetKorkeus() {
         System.out.println("getKorkeus");
-        TetrisAlusta instance = new TetrisAlusta();
+        TetrisAlusta instance = new TetrisAlusta(20,20);
         int expResult = 20;
         int result = instance.getKorkeus();
         assertEquals(expResult, result);
@@ -64,7 +64,7 @@ public class TetrisAlustaTest {
     @Test
     public void testShiftBlocks() {
         System.out.println("shiftBlocks");
-        TetrisAlusta instance = new TetrisAlusta();
+        TetrisAlusta instance = new TetrisAlusta(20,20);
         boolean expResult = true;
         boolean result = instance.shiftBlocks(0,0);
         assertEquals(expResult, result);
@@ -76,7 +76,7 @@ public class TetrisAlustaTest {
     @Test
     public void testFlipBlock() {
         System.out.println("flipBlock");
-        TetrisAlusta instance = new TetrisAlusta();
+        TetrisAlusta instance = new TetrisAlusta(20,20);
         instance.flipBlock();
     }
 
@@ -89,24 +89,9 @@ public class TetrisAlustaTest {
         int x = 0;
         int y = 0;
         Palikka t = new Palikka();
-        t.setColor(new int[] {111,222,333});
-        TetrisAlusta instance = new TetrisAlusta();
+        t.setStopped(false);
+        TetrisAlusta instance = new TetrisAlusta(20,20);
         instance.LisaaPalikka(x, y, t);
-        int blue = instance.getPalikkaAt(x,y).getColor()[2];
-        assertEquals(333,blue);
-    }
-
-    /**
-     * Test of getPalikkaAt method, of class TetrisAlusta.
-     */
-    @Test
-    public void testGetPalikkaAt() {
-        System.out.println("getPalikkaAt");
-        int x = 0;
-        int y = 0;
-        TetrisAlusta instance = new TetrisAlusta();
-        instance.getPalikkaAt(x, y).setColor(new int[]{200,200,200});
-        Palikka result = instance.getPalikkaAt(x, y);
-        assertEquals(200, result.getColor()[0]);
+        assertEquals(false,instance.getPalikkaAt(x, y).isStopped());
     }
 }

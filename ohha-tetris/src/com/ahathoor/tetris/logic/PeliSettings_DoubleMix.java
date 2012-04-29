@@ -1,12 +1,12 @@
 /*
- * Global settings for the Tetturissy game
+ * 
  */
 package com.ahathoor.tetris.logic;
 
 import com.ahathoor.tetris.PalikkaMuodot.*;
 
 /**
- *
+ * Global settings for the Tetturissy game
  * @author ahathoor
  */
 public class PeliSettings_DoubleMix extends PeliSettings_Classic{

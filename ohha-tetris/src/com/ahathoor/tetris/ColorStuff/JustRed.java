@@ -6,7 +6,7 @@ package com.ahathoor.tetris.ColorStuff;
 
 
 /**
- *
+ * Syöttää vain punaista väriä
  * @author ahathoor
  */
 public class JustRed implements ColorFeeder{

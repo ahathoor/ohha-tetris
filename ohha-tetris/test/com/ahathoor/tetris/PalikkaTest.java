@@ -38,21 +38,6 @@ public class PalikkaTest {
      */
     @Test
     public void testSetColor() {
-        System.out.println("setColor");
-        int[] rgb = {100,100,100};
-        int[] expected = {100,100,100};
-        Palikka instance = new Palikka();
-        instance.setColor(rgb);
-        assertEquals(instance.getColor()[0],expected[0]);
-        rgb[0] = -11;
-        instance.setColor(rgb);
-        assertEquals(instance.getColor()[0],expected[0]);
-        rgb[0] = 9999;
-        instance.setColor(rgb);
-        assertEquals(instance.getColor()[0],expected[0]);
-        int[] toolong = {20,5,2,3};
-        instance.setColor(toolong);
-        assertEquals(instance.getColor()[0],expected[0]);
     }
 
     /**
@@ -60,12 +45,6 @@ public class PalikkaTest {
      */
     @Test
     public void testGetColor() {
-        System.out.println("getColor");
-        Palikka instance = new Palikka();
-        instance.setColor(new int[] {255,255,255});
-        int[] expResult = {255,255,255};
-        int[] result = instance.getColor();
-        assertEquals(expResult[0], result[0]);
     }
 
     /**
@@ -124,19 +103,5 @@ public class PalikkaTest {
         System.out.println("clear");
         Palikka instance = new Palikka();
         instance.clear();
-    }
-
-    /**
-     * Test of copyAttributes method, of class Palikka.
-     */
-    @Test
-    public void testCopyAttributes() {
-        System.out.println("copyAttributes");
-        Palikka p = new Palikka();
-        int[] rgb = {123,123,123};
-        p.setColor(rgb);
-        Palikka instance = new Palikka();
-        instance.copyAttributes(p);
-        assertEquals(rgb[0],instance.getColor()[0]);
     }
 }

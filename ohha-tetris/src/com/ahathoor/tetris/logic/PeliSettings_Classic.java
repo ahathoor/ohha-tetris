@@ -1,5 +1,5 @@
 /*
- * Global settings for the Classic Tetturissy game
+
  */
 package com.ahathoor.tetris.logic;
 
@@ -9,7 +9,7 @@ import com.ahathoor.tetris.PalikkaMuodot.*;
 import java.util.Properties;
 
 /**
- *
+ * Global settings for the Classic Tetturissy game
  * @author ahathoor
  */
 public class PeliSettings_Classic {

@@ -1,5 +1,5 @@
 /*
- * hallinnoi lautaa tetrismäiseen tyyliin
+ * 
  */
 package com.ahathoor.tetris.logic;
 
@@ -9,7 +9,7 @@ import com.ahathoor.tetris.ColorStuff.ColorFeeder;
 import com.ahathoor.tetris.PalikkaMuodot.PalikkaMuoto;
 
 /**
- *
+ * hallinnoi lautaa tetrismäiseen tyyliin
  * @author ahathoor
  */
 public class Pelinkulku {
