@@ -86,19 +86,14 @@ public class Pelinkulku {
                 if (taydetRivit[j]) {
                     ilmoittaja.ilmoita("OHYEAUGOTRIVI#" + j, 15);
                     pistelaskuri.add(config.scoreFromRow);
+                    board.tyhjennaRivi(j);
+                    if (config.clearingMakesMovables)
+                        board.teeRivitLiikkuviksi(j);
                 }
             }
-            for (int j = 0; j < korkeus; j++) {
-                if (taydetRivit[j]) {
-                    if (config.clearingMakesMovables) {
-                        board.teeRivitLiikkuviksi(j);
-                        board.tyhjennaRivi(j);
-                    } else {
-                        if (board.riviOnTaysi(j)) {
-                            board.poistaRivi(j);
-                            j--;
-                        }
-                    }
+            for (int j = korkeus-1; j >= 0; j--) {
+                if (taydetRivit[j] && !config.clearingMakesMovables) {
+                    board.poistaRivi(j);
                 }
             }
         }
